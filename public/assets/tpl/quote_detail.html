@@ -1,0 +1,107 @@
+<div class="dashboard grey lighten-3" ng-controller="QuoteController">
+  <div class="row no-gutter">
+
+    <div class="col-sm-12 col-md-12" ng-class="{'col-lg-9': add_note, 'col-lg-9': set_assembly, 'col-lg-12': (!add_note && !set_assembly)}">
+
+      <div class="p-20 clearfix">
+        <h4 class="grey-text">
+          <i class="md md-dashboard"></i>
+          <span class="hidden-xs">Quote Detail</span>
+        </h4>
+      </div>
+      
+      <div class="p-20 no-p-t">
+        <div class="row m-b-40">
+            <div class="p-20 col-md-12" ng-if="quoteText">
+                <div class="card no-margin">
+                    <h3 class="table-title p-20">
+                        <a ng-click="hideQuoteText()"><i class="md md-clear"></i></a>Quote as Text
+                    </h3>
+                    <textarea class="form-control vertical monotextarea" rows="10" id="textArea" ng-model="quoteText"></textarea>
+                </div>
+            </div>
+            <div class="col-md-12">
+              <div class="card no-margin">
+
+                <div class="table-responsive">
+                    <h3 class="table-title p-20">
+                        New Quote
+                        <button class="btn btn-default" ng-click="viewQuoteAsText()">View as Text<div class="ripple-wrapper"></div></button>
+                    </h3>
+                    <table class="table table-hover table-full table-full-small quote">
+                      <colgroup>
+                        <col width="">
+                        <col width="">
+                        <col width="" />
+                      </colgroup>
+                      <thead>
+                        <tr>
+                          <th>No</th>
+                          <th>Article No - Name</th>
+                          <th>Quantity</th>
+                          <th>Unit Price(RM)</th>
+                          <th>Amount(RM)</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          <tr ng-repeat="item in quoteItems track by $index">
+                            <td>{{$index+1}}</td>
+                            <td><a href ng-click="openURL(item.url)">{{item.article_id}} - {{item.name}}</a>
+                                <p ng-if="item.assembly_detail">
+                                    <a ng-click="clearAssembly($index)"><i class="md md-clear"></i></a>
+                                    Assembly Price: {{(item.assembly_detail.price.indexOf('%') >= 0) ? item.assembly_detail.price:'RM'+item.assembly_detail.price}}
+                                </p>
+                                <p ng-if="item.note">
+                                    <a ng-click="clearNote($index)"><i class="md md-clear"></i></a>
+                                    {{item.note.val}}
+                                </p>
+                            </td>
+                            <td>{{item.quantity}}</td>
+                            <td>{{accounting.unformat(item.price)}}</td>
+                            <td>{{accounting.unformat(item.price)*item.quantity}}</td>
+                            <td>
+                                <a ng-if="item.assembly == 1" title="Assembly Required!" 
+                                   ng-click="displayAssembly(item, $index)" class="btn btn-default">
+                                    <i class="md md-new-releases"></i>
+                                </a>
+                                <a ng-click="addNote(item, $index)" class="btn btn-default"><i class="md md-speaker-notes"></i></a>
+                                <a ng-click="quoteService.remove($index)" class="btn btn-default"><i class="md md-delete red-text"></i></a>
+                            </td>
+                          </tr>
+                          
+                      </tbody>
+                      <tfoot>
+                          <tr ng-if="quoteService.selected_courier">
+                            <td class="label_right" colspan="4">
+                                <!-- (<a ng-click="viewShippingDetails()">View Details</a>) -->
+                                Shipping To 
+                                <a data-animation="am-fade-and-slide-top" 
+                                   data-template="assets/tpl/partials/shipping_country.html" 
+                                   bs-modal="modal">{{quoteService.getCountry().country}}</a> 
+                                {{' - ' + quoteService.selected_courier.name}}
+                            </td>
+                            <td>{{quoteService.shipping_cost}}</td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td class="label_right total" colspan="4">
+                                Total
+                            </td>
+                            <td class="total">{{accounting.toFixed(quoteService.total_price, 2)}}</td>
+                            <td></td>
+                          </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+              </div>
+            </div>
+        </div>
+        <div class="grey-text small p-t-20" ng-cloak>JACE - v{{APP.version}}</div>
+      </div>
+      
+    </div>
+    <div ng-if="set_assembly" data-animation="am-fade-and-slide-right"  class="col-lg-3 col-md-12" ng-include src="'assets/tpl/partials/assembly.html'" ></div>
+    <div ng-if="add_note" data-animation="am-fade-and-slide-right"  ng-include src="'assets/tpl/partials/addnote.html'" class="col-lg-3 col-md-12"></div>
+ </div>
+</div>

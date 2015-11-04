@@ -1,0 +1,23 @@
+<aside class="sidebar fixed">
+  <div class="brand-logo">
+    <div id="logo">
+    </div>
+    JACE
+  </div>
+  <div class="user-logged-in">
+    <div class="content">
+      <div class="user-name">{{user.name}}</div>
+      <div class="user-email">{{user.email}}</div>
+      <div class="user-actions">
+        <a ng-click="logout()">logout</a>
+      </div>
+    </div>
+  </div>
+  <ul class="menu-links" ng-cloak>
+    <a menu-link href="#/dashboard" icon="md md-blur-on">Dashboard</a>
+    <a menu-link href="#/category" icon="">Categories</a>
+    <a menu-link href="#/logistics" icon="">Logistics</a>
+    <a menu-link href="#/user" icon="">Users</a>
+    <a menu-link href="#/settings" icon="">Settings</a>      
+  </ul>
+</aside>

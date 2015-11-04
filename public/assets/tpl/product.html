@@ -1,0 +1,57 @@
+<div class="dashboard grey lighten-3" ng-controller="CategoryController">
+  <div class="row no-gutter">
+
+    <div class="col-sm-12 col-md-12 col-lg-12">
+
+      <div class="p-20 clearfix">
+        <h4 class="grey-text">
+          <i class="md md-dashboard"></i>
+          <span class="hidden-xs">{{pageTitle}}</span>
+        </h4>
+      </div>
+      
+      <div class="p-20 no-p-t">
+        <div class="card">
+            <div class="table-search">
+              <input type="text" class="form-control" ng-model="keyword" placeholder="Search Category" autofocus />
+            </div>
+        </div>
+        <div class="row m-b-40">
+            <div class="col-md-12">
+              <div class="card no-margin">
+
+                <div class="table-responsive white">
+                  <h3 class="table-title p-20">Product ({{product.length}})</h3>
+
+                  <table class="table table-full table-full-small">
+                    <colgroup>
+                      <col class="auto-cell-size p-r-20" />
+                    </colgroup>
+                    <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Category</th>
+                      <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr ng-repeat="(key, item) in product | filter:keyword">
+                      <td>{{ item.id }}</td>
+                      <td>{{ item.name }}</td>
+                      <td>
+                          <button type="button" class="btn btn-xs btn-round btn-info" ng-click="openURL(item.url)"><span class="md md-launch"></span><div class="ripple-wrapper"></div></button>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="grey-text small p-t-20" ng-cloak>JACE - v{{APP.version}}</div>
+      </div>
+      
+    </div>
+ </div>
+</div>

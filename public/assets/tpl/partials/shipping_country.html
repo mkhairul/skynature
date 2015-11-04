@@ -1,0 +1,26 @@
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="$hide()">&times;</button>
+        <h4 class="modal-title">Change Country</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-floating">
+          <fieldset>                  
+            <div class="form-group">
+              <label class="control-label">Select a country</label>
+              <select class="form-control" ng-model="selected_country">
+                <option ng-repeat="row in quoteService.countries">{{row.name}}</option>
+              </select>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="$hide()">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="quoteService.changeCountry(selected_country); $hide()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

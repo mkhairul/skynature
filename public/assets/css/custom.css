@@ -1,0 +1,35 @@
+.breadcrumb > li + li:before{
+    content: "/\00a0" !important;
+}
+
+#logo{
+    background: url(../img/favicon/favicon-196x196.png) center center no-repeat;
+    background-size:contain;
+    width: 45px;
+    height: 45px;
+    vertical-align: middle;
+}
+
+.quote tfoot{ border-top: 2px solid #9f9f9f; }
+.quote .label_right{
+    text-align: right !important;
+    padding-right: 5px;
+}
+.quote .total{
+    font-size: 1.5em;
+}
+.quote td{ vertical-align: top !important; }
+
+.table-full-small tfoot > tr > td:first-child{
+    padding-left: 20px; 
+}
+
+.modal { text-align: left !important; }
+
+.monotextarea{
+  border:1px solid #999999;
+  font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
+
+}
+
+a{ cursor: pointer; }

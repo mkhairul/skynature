@@ -1,0 +1,156 @@
+<div class="dashboard grey lighten-3" ng-controller="LogisticController">
+  <div class="row no-gutter">
+
+    <div class="col-sm-12 col-md-12 col-lg-12">
+
+      <div class="p-20 clearfix">
+        <h4 class="grey-text">
+          <i class="md md-dashboard"></i>
+          <span class="hidden-xs">{{pageTitle}}</span>
+        </h4>
+      </div>
+      
+      <div class="p-20 no-p-t">
+        <div class="card">
+            <div class="table-search">
+              <input type="text" class="form-control" ng-model="keyword" placeholder="Search Courier" autofocus />
+            </div>
+        </div>
+        <div class="row" ng-if="courier.action == 'new' || courier.action == 'update'">
+            <div class="col-md-6">
+              <div class="well white">
+                <form class="form-floating">
+
+                  <fieldset>
+                    <legend>{{courier.action.charAt(0).toUpperCase() + courier.action.slice(1)}} Courier</legend>
+                    <span class="help-block mw400">create new courier</span>
+                    <div class="row" ng-show="showError">
+                        <div class="col-md-12">
+                          <div class="bs-component">
+                            <div class="alert alert-dismissible alert-danger">
+                              <button type="button" class="close" data-dismiss="alert">×</button>
+                              <p ng-repeat="(key, message) in errorMessage">{{message[0]}}</p>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      <input class="form-control" id="focusedInput" type="text" ng-model="courier.name" value="{{courier.name}}">
+                      <label class="control-label" for="focusedInput">Name</label>
+                    </div>
+                    
+                    <div class="form-group">
+                      <button type="button" ng-click="newCondition()" class="btn btn-success">Add Condition</button>
+                      <button type="submit" ng-click="saveCourier()" class="btn btn-primary">Save</button>
+                      <button type="button" class="btn btn-default" ng-click="hideNewCourier()">Cancel</button>
+                    </div>
+                  </fieldset>
+
+                </form>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div ng-repeat="item in courier.conditions track by $index">
+                <div class="well white">
+                    <form class="form-floating">
+                      <fieldset>
+                        <legend>Conditions {{$index+1}}</legend>                   
+                        <div class="form-group">
+                          <input class="form-control" id="focusedInput" type="text" ng-model="item.location" value="{{item.location}}">
+                          <label class="control-label" for="focusedInput">Location</label>
+                        </div>
+
+                        <div class="form-group filled">
+                          <div class="input-group">
+                            <div class="row">
+                              <div class="col-md-4 filled">
+                                <select class="form-control" ng-model="item.compare">
+                                    <option ng-repeat="row in compare">{{row}}</option>
+                                </select>
+                              </div>  
+                              <div class="col-md-4 filled">
+                                <label class="control-label">kg</label>
+                                <input type="text" class="form-control ng-valid" ng-model="item.weight" placeholder="weight in kg" >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <button type="button" class="btn btn-default" ng-click="newPrice(item)">Add Price</button>
+                          <button type="button" class="btn btn-default" ng-click="clearCondition($index)">Cancel</button>
+                        </div>
+                      </fieldset>
+                    </form>
+                </div>
+                
+                <div class="well white" ng-repeat="price in item.prices track by $index">
+                    <form class="form-floating">
+                      <fieldset>
+                        <legend>Price {{$index+1}} for Condition {{$parent.$index+1}}</legend>                   
+                        <div class="form-group">
+                          <input class="form-control" id="focusedInput" type="text" ng-model="price.formula" value="{{price.formula}}" placeholder="">
+                          <span class="help-block">x is product weight. v is the return value for the formula. e.g. v  = v + 5</span>
+                          <label class="control-label" for="focusedInput">Formula</label>
+                        </div>
+
+                        <div class="form-group">
+                          <button type="button" class="btn btn-default" ng-click="clearPrice(item, $index2)">Cancel</button>
+                        </div>
+                      </fieldset>
+                    </form>
+                </div>
+                  
+              </div>
+            </div>
+        </div>
+        <div class="row m-b-40">
+            <div class="col-md-12">
+              <div class="card no-margin">
+
+                <div class="table-responsive white">
+                  <h3 class="table-title p-20">
+                      {{pageTitle}} ({{couriers.length}})
+                      <button type="button" class="btn btn-xs btn-round btn-success" ng-click="newCourier();"><span class="md md-add"></span><div class="ripple-wrapper"></div></button>
+                  </h3>
+
+                  <table class="table table-full table-full-small">
+                    <colgroup>
+                      <col class="auto-cell-size p-r-20" />
+                    </colgroup>
+                    <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Conditions</th>
+                      <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr ng-repeat="(key, item) in couriers track by $index | filter:keyword">
+                      <td>{{ $index+1 }}</td>
+                      <td><a ng-click="selectCourier(item)">{{ item.name }}</a></td>
+                      <td>{{ item.conditions.length }}</td>
+                      <td>
+                          <button type="button" 
+                                  title="Delete"
+                                  data-animation="am-fade-and-slide-top" 
+                                  data-template="assets/tpl/partials/confirm_delete.html" 
+                                  bs-modal="modal"
+                                  class="btn btn-xs btn-round btn-danger" 
+                                  ng-click="setDeleteCourier(item, $index)"><span class="md md-delete"></span><div class="ripple-wrapper"></div></button>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="grey-text small p-t-20" ng-cloak>JACE - v{{APP.version}}</div>
+      </div>
+      
+    </div>
+ </div>
+</div>

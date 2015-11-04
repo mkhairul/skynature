@@ -1,0 +1,107 @@
+<div class="dashboard grey lighten-3" ng-controller="UserController">
+  <div class="row no-gutter">
+
+    <div class="col-sm-12 col-md-12 col-lg-12">
+
+      <div class="p-20 clearfix">
+        <h4 class="grey-text">
+          <i class="md md-dashboard"></i>
+          <span class="hidden-xs">{{pageTitle}}</span>
+        </h4>
+      </div>
+      
+      <div class="p-20 no-p-t">
+        <div class="card">
+            <div class="table-search">
+              <input type="text" class="form-control" ng-model="keyword" placeholder="Search Package" autofocus />
+            </div>
+        </div>
+        <div class="p-20 p-b-no row m-b-40" ng-if="user.action == 'new' || user.action == 'update'">
+            <div class="well white">
+                <form class="form-floating">
+
+                  <fieldset>
+                    <legend>{{user.action.charAt(0).toUpperCase() + user.action.slice(1)}} User</legend>
+                    <span class="help-block mw400">{{user.action.charAt(0).toUpperCase() + user.action.slice(1)}} new user</span>                    
+                    <div class="alert alert-dismissible alert-danger" ng-if="error">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        {{error.message}}
+                    </div>
+                    <div class="form-group">
+                      <input class="form-control" id="focusedInput" type="text" ng-model="user.name" value="{{user.name}}">
+                      <label class="control-label" for="focusedInput">Name</label>
+                    </div>
+                    <div class="form-group">
+                      <input class="form-control" id="focusedInput" type="text" ng-model="user.email" value="{{user.email}}">
+                      <label class="control-label" for="focusedInput">Email</label>
+                    </div>
+                      
+                    <div class="form-group">
+                      <input class="form-control" id="focusedInput" type="password" ng-model="user.password">
+                      <label class="control-label" for="focusedInput">Password</label>
+                    </div>
+                    
+                    <div class="form-group">
+                      <button type="submit" ng-click="saveUser()" class="btn btn-primary">Save</button>
+                      <button type="button" class="btn btn-default" ng-click="hideNewUser()">Cancel</button>
+                    </div>
+                  </fieldset>
+
+                </form>
+            </div>
+        </div>
+        <div class="row m-b-40">
+            <div class="col-md-12">
+              <div class="card no-margin">
+
+                <div class="table-responsive white">
+                  <h3 class="table-title p-20">
+                      {{pageTitle}} ({{users.length}})
+                      <button type="button" 
+                              class="btn btn-xs btn-round btn-success" 
+                              ng-click="newUser();">
+                          <span class="md md-add"></span>
+                          <div class="ripple-wrapper"></div>
+                      </button>
+                  </h3>
+
+                  <table class="table table-full table-full-small">
+                    <colgroup>
+                      <col class="auto-cell-size p-r-20" />
+                    </colgroup>
+                    <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr ng-repeat="(key, item) in users track by $index | filter:keyword">
+                      <td>{{ item.id }}</td>
+                      <td><a ng-click="selectUser(item)">{{ item.name }}</a></td>
+                      <td>{{ item.email }}</td>
+                      <td>
+                          <button type="button" 
+                                  title="Delete"
+                                  data-animation="am-fade-and-slide-top" 
+                                  data-template="assets/tpl/partials/confirm_delete.html" 
+                                  bs-modal="modal"
+                                  class="btn btn-xs btn-round btn-danger" 
+                                  ng-click="setDeleteUser(item, $index)"><span class="md md-delete"></span><div class="ripple-wrapper"></div></button>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="grey-text small p-t-20" ng-cloak>JACE - v{{APP.version}}</div>
+      </div>
+      
+    </div>
+ </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="p-20">
+    <div class="pull-right">
+      <ul class="list-unstyled">
+        <li class="dropdown">
+          <button type="button"
+                  ng-click="hideAssembly()"
+                  class="btn btn-round-sm btn-link"
+                  title="Close">
+            <i class="md md-clear"></i>
+          </button>
+        </li>
+    </div>
+    <h4 class="grey-text m-b-30">Add Assembly Price to Item {{assembly_detail.id+1}}</h4>
+    <div class="well white">
+        <form class="form-floating">
+          <fieldset>
+            <div class="form-group">
+              <label for="textArea" class="control-label">Price</label>
+              <textarea class="form-control vertical" rows="3" id="textArea" ng-model="assembly_detail.price"></textarea>
+              <span class="help-block">Add assembly price.</span>
+            </div>
+            <div class="form-group">
+              <button type="submit" ng-click="saveAssembly()" class="btn btn-primary">Save</button>
+            </div>
+          </fieldset>
+        </form>
+    </div>
+</div>
