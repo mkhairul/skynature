@@ -13,74 +13,52 @@
       <div class="p-20 no-p-t">
         <div class="card">
             <div class="table-search">
-              <input type="text" class="form-control" ng-model="product_keyword" my-enter="searchProduct(product_keyword)" placeholder="Search SKU" autofocus />
+              <input type="text" class="form-control" ng-model="user_keyword" 
+                     placeholder="Search User" autofocus />
             </div>
         </div>
           
-        <div class="row" ng-if="selected_product">
-            <div class="col-md-6">
-              <div class="well white">
-                <form class="form-floating">
-
-                  <fieldset>
-                    <legend>{{ selected_product.name }}</legend>
-                    <span class="help-block mw400">{{selected_product.desc}}</span>                    
-                    <div class="form-group">
-                      <input class="form-control" id="focusedInput" type="text" ng-model="selected_product.article_id" value="{{selected_product.article_id}}">
-                      <label class="control-label" for="focusedInput">Article ID/No</label>
-                    </div>
-                    <div class="form-group">
-                      <button type="submit" class="btn btn-primary">Save</button>
-                      <button type="button" class="btn btn-default" ng-click="clearSelected()">Cancel</button>
-                    </div>
-                  </fieldset>
-
-                </form>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="table-responsive white">
-                  <h3 class="table-title p-20">Packages</h3>
-
-                  <table class="table table-full table-full-small">
-                    <colgroup>
-                      <col class="auto-cell-size p-r-20" />
-                    </colgroup>
-                    <thead>
-                        <tr>
-                          <th>ID</th>
-                          <th>W</th>
-                          <th>H</th>
-                          <th>L</th>
-                          <th>Weight</th>
-                          <th>Diameter</th>
-                          <th>Total</th>
-                          <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="(key, item) in selected_product.packages">
-                          <td><a ng-click="editPackage()">{{ item.article_id }}</a></td>
-                          <td>{{item.width}}</td>
-                          <td>{{ item.height }}</td>
-                          <td>{{ item.length }}</td>
-                          <td>{{ item.weight }}</td>
-                          <td>{{ item.diameter }}</td>
-                          <td>{{ item.total }}</td>
-                          <td></td>
-                        </tr>
-                    </tbody>
-                  </table>
-              </div>
+        <div class="row" ng-if="addEditUser">
+            <div class="col-md-12">
+                <div class="well white">
+                    <form class="form-floating">
+                      <fieldset>
+                        <legend>Create User</legend>
+                        <span class="help-block">Please fill out the following form below.</span>
+                        <div class="form-group">
+                          <label for="inputEmail" class="control-label">Email</label>
+                          <input type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                          <label for="inputEmail" class="control-label">Name</label>
+                          <input type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                          <label for="inputEmail" class="control-label">Password</label>
+                          <input type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                          <label for="inputEmail" class="control-label">IC No.</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </fieldset>
+                      <div>
+                        <button class="btn btn-success">Save<div class="ripple-wrapper"></div></button>
+                        <button class="btn btn-default" ng-click="hideAddEditUser()">Cancel<div class="ripple-wrapper"></div></button>
+                      </div>
+                    </form>
+                </div>
             </div>
         </div>
           
-        <div class="row m-b-40" ng-show="product.length > 0">
+        <div class="row">
             <div class="col-md-12">
               <div class="card no-margin">
-
                 <div class="table-responsive white">
-                  <h3 class="table-title p-20">Product</h3>
+                  <h3 class="table-title p-20">
+                      Users
+                      <button ng-click="addEditUser = true" type="button" class="btn btn-xs btn-round btn-success"><span class="md md-add"></span><div class="ripple-wrapper"></div></button>
+                  </h3>
 
                   <table class="table table-full table-full-small">
                     <colgroup>
@@ -88,33 +66,22 @@
                     </colgroup>
                     <thead>
                     <tr>
-                      <th>ID</th>
-                      <th>Product</th>
-                      <th>Packages</th>
-                      <th>Assembly?</th>
-                      <th>Availability</th>
-                      <th>Price</th>
-                      <th>Actions</th>
+                      <th>No.</th>
+                      <th>Name</th>
+                      <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
 
-                    <tr ng-repeat="(key, item) in product">
-                      <td>{{ item.article_id }}</a></td>
-                      <td><a ng-click="selectProduct(item)">{{ item.name }}</a></td>
-                      <td>{{ item.packages.length }}</td>
+                    <tr ng-repeat="row in users track by $index">
+                      <td class="f20">{{$index+1}}</td>
+                      <td>{{ row.name }}</td>
                       <td>
-                          <i class="md md-done" ng-if="item.assembly == 1"></i>
-                      </td>
-                      <td>
-                          <a ng-click="getAvailability(item)">
-                              {{(item.availability) ? item.availability:'Check'}}
-                          </a>
-                      </td>
-                      <td>{{item.price}}</td>
-                      <td>
-                          <button type="button" class="btn btn-xs btn-round btn-info" ng-click="openURL(item.url)"><span class="md md-launch"></span><div class="ripple-wrapper"></div></button>
-                          <button type="button" class="btn btn-xs btn-round btn-success" ng-click="addProductToQuote(item)"><span class="md md-add"></span><div class="ripple-wrapper"></div></button>
+                          <ul class="actions">
+                              <li><a href>Approve</a></li>
+                              <li><a href>Reject</a></li>
+                              <li><a href>Add User</a></li>
+                          </ul>
                       </td>
                     </tr>
                     </tbody>
@@ -123,6 +90,7 @@
               </div>
             </div>
         </div>
+        
         <div class="row" ng-show="showError">
             <div class="col-md-12">
               <div class="bs-component">
@@ -133,58 +101,39 @@
               </div>
             </div>
         </div>
-        <div class="grey-text small p-t-20" ng-cloak>JACE - v{{APP.version}}</div>
+        <div class="grey-text small p-t-20" ng-cloak>SkyNature - v{{APP.version}}</div>
       </div>
     </div>
 
     <div class="col-lg-3 col-md-12">
 
       <div class="p-20">
-        <div class="pull-right">
-          <ul class="list-unstyled">
-            <li class="dropdown">
-              <button type="button"
-                      class="btn btn-round-sm btn-link"
-                      bs-dropdown="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                      data-template="assets/tpl/partials/dropdown-list-example.html"
-                      data-animation="mat-grow-top-right"
-                      bs-tooltip
-                      title="More stats">
-                <i class="md md-equalizer"></i>
-              </button>
-            </li>
-        </div>
-        <h4 class="grey-text m-b-30">Quote</h4>
+        <h4 class="grey-text m-b-30">FAQ</h4>
 
         <div class="card">
-          <div class="p-10 p-l-20 p-r-20 clearfix">
-            <div class="badge pull-right">{{quoteItems.length}}</div>
-            <div class="pull-right p-r-20" ng-if="quoteItems.length > 0"><a ng-click="clearQuote()">Clear All</a></div>
-            <div class="w600 f11 grey-text"><a href="#/quote_detail">New Quote</a> </div>
+            <ul class="list-group">
+              <li class="list-group-item">
+                <i class="md md-android"></i>
+                How to create user
+              </li>
+              <li class="list-group-item">
+                <i class="md md-add-box"></i>
+                Setting Commission
+              </li>
+              <li class="list-group-item">
+                <i class="md md-apps"></i>
+                Porta ac consectetur ac
+              </li>
+              <li class="list-group-item">
+                <i class="md md-radio"></i>
+                Vestibulum at eros
+              </li>
+              <li class="list-group-item">
+                <i class="md md-adjust"></i>
+                Dapibus ac facilisis in
+              </li>
+            </ul>
           </div>
-          <div class="table-responsive">
-            <table class="table table-small grey-text">
-              <colgroup>
-                <col width="">
-                <col width="">
-                <col width="" />
-              </colgroup>
-              <tbody>
-                  <tr ng-repeat="item in quoteItems track by $index">
-                    <td>
-                        {{item.article_id}} - {{item.name}}
-                        <span ng-if="item.quantity > 1"> x {{item.quantity}}</span>
-                    </td>
-                    <td>{{accounting.unformat(item.price) * item.quantity}}</td>
-                    <td><a ng-click="removeProductFromQuote($index)"><i class="md md-delete red-text"></i></a></td>
-                  </tr>
-              </tbody>
-            </table>
-          </div>
-
-        </div>
       </div>
 
     </div>

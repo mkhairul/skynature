@@ -36,3 +36,9 @@
 }
 
 a{ cursor: pointer; }
+
+.actions{ padding: 0; }
+.actions li{
+  display: inline-block;
+  margin-right: 5px; 
+}
