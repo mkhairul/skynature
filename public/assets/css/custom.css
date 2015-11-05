@@ -3,11 +3,14 @@
 }
 
 #logo{
+	background: transparent;
+	/*
     background: url(../img/favicon/favicon-196x196.png) center center no-repeat;
     background-size:contain;
     width: 45px;
     height: 45px;
     vertical-align: middle;
+	*/
 }
 
 .quote tfoot{ border-top: 2px solid #9f9f9f; }
