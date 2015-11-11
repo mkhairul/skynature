@@ -16,6 +16,8 @@ class UserTableSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@admin.com',
             'password' => bcrypt('password'),
+            'enabled' => 1,
+            'parent_id' => 0
         ]);
     }
 }

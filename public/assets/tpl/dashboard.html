@@ -23,27 +23,27 @@
                 <div class="well white">
                     <form class="form-floating">
                       <fieldset>
-                        <legend>Create User</legend>
+                        <legend>Create User {{(selected_parent) ? 'under (' + selected_parent.name + ')':''}}</legend>
                         <span class="help-block">Please fill out the following form below.</span>
                         <div class="form-group">
                           <label for="inputEmail" class="control-label">Email</label>
-                          <input type="text" class="form-control">
+                          <input type="text" class="form-control" ng-model="new_user.email">
                         </div>
                         <div class="form-group">
                           <label for="inputEmail" class="control-label">Name</label>
-                          <input type="text" class="form-control">
+                          <input type="text" class="form-control" ng-model="new_user.name">
                         </div>
                         <div class="form-group">
                           <label for="inputEmail" class="control-label">Password</label>
-                          <input type="text" class="form-control">
+                          <input type="password" class="form-control" ng-model="new_user.password">
                         </div>
                         <div class="form-group">
                           <label for="inputEmail" class="control-label">IC No.</label>
-                          <input type="text" class="form-control">
+                          <input type="text" class="form-control" ng-model="new_user.ic_no">
                         </div>
                       </fieldset>
                       <div>
-                        <button class="btn btn-success">Save<div class="ripple-wrapper"></div></button>
+                        <button class="btn btn-success" ng-click="saveUser()">Save<div class="ripple-wrapper"></div></button>
                         <button class="btn btn-default" ng-click="hideAddEditUser()">Cancel<div class="ripple-wrapper"></div></button>
                       </div>
                     </form>
@@ -51,7 +51,7 @@
             </div>
         </div>
           
-        <div class="row">
+        <div class="row users">
             <div class="col-md-12">
               <div class="card no-margin">
                 <div class="table-responsive white">
@@ -68,6 +68,7 @@
                     <tr>
                       <th>No.</th>
                       <th>Name</th>
+                      <th>Parent</th>
                       <th>Action</th>
                     </tr>
                     </thead>
@@ -76,11 +77,11 @@
                     <tr ng-repeat="row in users track by $index">
                       <td class="f20">{{$index+1}}</td>
                       <td>{{ row.name }}</td>
+                      <td ng-init="parent = getParent(row)">{{ (parent) ? parent[0].name:'-'}}</td>
                       <td>
                           <ul class="actions">
-                              <li><a href>Approve</a></li>
-                              <li><a href>Reject</a></li>
-                              <li><a href>Add User</a></li>
+                              <li ng-if="row.enabled != 1"><a href>Approve</a></li>
+                              <li><a href ng-click="addUser(row)">Add User</a></li>
                           </ul>
                       </td>
                     </tr>

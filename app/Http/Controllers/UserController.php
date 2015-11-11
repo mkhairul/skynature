@@ -15,7 +15,7 @@ class UserController extends Controller
     }
     
     public function getAll(){
-        $result = User::select('name', 'email')->get();
+        $result = User::select('id', 'parent_id', 'name', 'enabled', 'email')->get();
         return response()->json($result);
     }
     
@@ -30,6 +30,11 @@ class UserController extends Controller
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->password = bcrypt($request->input('password'));
+        if($request->input('parent'))
+        {
+            $user->parent_id = $request->input('parent')['id'];
+        }
+        $user->ic_no = $request->input('ic_no');
         $user->save();
         return response()->json(['status' => 'ok', 'id' => $user->id]);
     }
@@ -41,9 +46,22 @@ class UserController extends Controller
         {
             return response()->json(['message' => 'User does not exists'], 500);
         }
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->password = bcrypt($request->input('password'));
+        if($request->input('name'))
+        {
+            $user->name = $request->input('name');
+        }
+        if($request->input('email'))
+        {
+            $user->email = $request->input('email');
+        }
+        if($request->input('password'))
+        {
+            $user->password = bcrypt($request->input('password'));
+        }
+        if($request->input('enabled'))
+        {
+            $user->email = $request->input('enabled');
+        }
         $user->save();
         return response()->json(['status' => 'ok']);
     }
@@ -51,5 +69,8 @@ class UserController extends Controller
     public function remove(Request $request){
         $result = User::where('email', $request->input('email'))->delete();
         return response()->json(['status' => 'ok']);
+    }
+    
+    public function children(Request $request){
     }
 }

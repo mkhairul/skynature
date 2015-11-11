@@ -42,3 +42,12 @@ a{ cursor: pointer; }
   display: inline-block;
   margin-right: 5px; 
 }
+
+.users tr td ul li{
+    border-right: 1px solid #ccc;
+    padding-right: 10px;
+    line-height: 15px;
+}
+.users tr td ul li:last-child{
+    border: none;
+}
