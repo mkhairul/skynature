@@ -152,8 +152,6 @@
   <script charset="utf-8" src="assets/js/directives/keypress.js"></script>
 
   <script charset="utf-8" src="assets/js/services/color-service.js"></script>
-  <script charset="utf-8" src="assets/js/services/todo-service.js"></script>
-  <script charset="utf-8" src="assets/js/services/quote-service.js"></script>
 
   <script charset="utf-8" src="assets/js/controllers/main.js"></script>
   <script charset="utf-8" src="assets/js/controllers/dashboard.js"></script>
@@ -178,6 +176,8 @@
   <script charset="utf-8" src="assets/js/controllers/quote.js"></script>
   <script charset="utf-8" src="assets/js/controllers/user.js"></script>
   <script charset="utf-8" src="assets/js/controllers/settings.js"></script>
+    
+  <script charset="utf-8" src="assets/js/controllers/commission.js"></script>
   <!-- endbuild -->
 </body>
 </html>

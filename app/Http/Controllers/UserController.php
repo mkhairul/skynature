@@ -10,12 +10,14 @@ use App\User;
 
 class UserController extends Controller
 {
+    public $total_children = 0;
+    
     public function __construct()
     {
     }
     
     public function getAll(){
-        $result = User::select('id', 'parent_id', 'name', 'enabled', 'email')->get();
+        $result = User::select('id', 'parent_id', 'ic_no', 'name', 'enabled', 'email')->get();
         return response()->json($result);
     }
     
@@ -60,7 +62,7 @@ class UserController extends Controller
         }
         if($request->input('enabled'))
         {
-            $user->email = $request->input('enabled');
+            $user->enabled = $request->input('enabled');
         }
         $user->save();
         return response()->json(['status' => 'ok']);
@@ -72,5 +74,25 @@ class UserController extends Controller
     }
     
     public function children(Request $request){
+        $user_id = $request->input('id');
+        $children = $this->retrieveChildren($user_id);
+        return response()->json(['status' => 'ok', 'children' => $children, 'total_children' => $this->total_children]);
+    }
+    
+    private function retrieveChildren($parent_id, $level = 1)
+    {
+        if($level == 8){ return []; }
+        
+        $users = [];
+        
+        $result = User::where('parent_id', $parent_id)->get();
+        $this->total_children += count($result);
+        foreach($result as $child)
+        {
+            $children = $this->retrieveChildren($child->id, $level + 1);
+            $users[] = ['user' => $child, 'children' => $children];
+        }
+        
+        return $users;
     }
 }

@@ -29,3 +29,9 @@ Route::get('users', 'UserController@getAll');
 Route::post('user/create', 'UserController@create');
 Route::post('user/update', 'UserController@update');
 Route::post('user/remove', ['middleware' => 'auth', 'uses' => 'UserController@remove']);
+Route::post('user/children', 'UserController@children');
+
+Route::post('settings/commission/create', 'SettingsCommissionController@create');
+Route::post('settings/commission/update', 'SettingsCommissionController@update');
+Route::post('settings/commission/delete', 'SettingsCommissionController@remove');
+Route::get('settings/commission', 'SettingsCommissionController@getAll');

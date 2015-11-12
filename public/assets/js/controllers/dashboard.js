@@ -37,11 +37,13 @@ app.controller('DashboardController',
   }
   
   $scope.approveUser = function(user){
+      user.enabled = 1;
       $http.post($rootScope.url + 'user/update', user)
       .success(function(data){
           
       })
       .error(function(data){
+          user.enabled = 0;
           console.log('error approving user');
       })
   }

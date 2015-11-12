@@ -1,6 +1,6 @@
 app.controller('MainController',
-  ['$location', 'quoteService', '$scope', '$animate', 'localStorageService', 'todoService', '$alert', '$timeout', '$rootScope', 'PlaceholderTextService', 'ngTableParams', '$filter', '$http', '$window',
-  function($location, quoteService, $scope, $animate, localStorageService, todoService, $alert, $timeout, $rootScope, PlaceholderTextService, ngTableParams, $filter, $http, $window){
+  ['$location', '$scope', '$animate', 'localStorageService', '$alert', '$timeout', '$rootScope', 'PlaceholderTextService', 'ngTableParams', '$filter', '$http', '$window',
+  function($location, $scope, $animate, localStorageService, $alert, $timeout, $rootScope, PlaceholderTextService, ngTableParams, $filter, $http, $window){
 
   $scope.accounting = accounting;
   $scope.theme_colors = [
@@ -121,6 +121,16 @@ app.controller('MainController',
       console.log('enter!');
   }
   
+  $scope.checkChildren = function(item){
+      $http.post($rootScope.url + 'user/children', item)
+      .success(function(data){
+          console.log(data);
+          item.total_children = data.total_children;
+      })
+      .error(function(data){
+      });
+  }
+  
   $scope.selectProduct = function(item){
       console.log(item);
       $scope.selected_product = item;
@@ -129,64 +139,6 @@ app.controller('MainController',
   $scope.clearSelected = function(){ delete $scope.selected_product };
   $scope.openURL = function(url){  $window.open(url, '_blank'); }
   
-  $scope.quoteService = quoteService;
-  $scope.quoteItems = $scope.quoteService.getItems();
   
-  $scope.addProductToQuote = function(product){
-      $scope.quoteService.add(product);
-  }
-  $scope.removeProductFromQuote = function(index){
-      $scope.quoteService.remove(index);
-  }
-  
-  $scope.viewQuoteDetails = function(){
-      if($scope.quoteItems.length > 0)
-      {
-        $location.path('/quote_detail');
-      }
-      else
-      {
-          var refererNotThemeforest = $alert({
-            title: 'Can\'t View Quote Detail!',
-            content: 'Add an item to view quote detail',
-            placement: 'top-right',
-            type: 'theme',
-            container: '.alert-container-top-right',
-            show: true,
-            animation: 'mat-grow-top-right'
-          });
-      }
-  }
-  
-  $scope.logout = function(){
-      $http.get($rootScope.url + 'auth/logout')
-      .success(function(data){
-          $window.location.href = $rootScope.url;
-      });
-  }
-  
-  $scope.clearQuote = function(){
-      $scope.quoteService.clear();
-      $scope.quoteItems = $scope.quoteService.getItems();
-  }
-  
-  $scope.getAvailability = function(item){
-      item.availability = 'Loading';
-      $http.post($rootScope.url + 'product/availability', {id:item.article_id})
-      .success(function(data){
-          item.availability = data.stock.availableStock;
-      })
-      .error(function(data){
-          item.availability = 'error';
-      });
-  }
-  
-  // Get users
-  $http.get($rootScope.url + 'auth/user')
-  .success(function(data){
-      $scope.user = data;
-  })
-  .error(function(){
-  });
   
 }]);

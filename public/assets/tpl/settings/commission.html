@@ -1,4 +1,4 @@
-<div class="dashboard grey lighten-3" ng-controller="DashboardController">
+<div class="dashboard grey lighten-3" ng-controller="CommissionController">
   <div class="row no-gutter">
 
     <div class="col-sm-12 col-md-12 col-lg-9" style="background:#F9F9F9;">
@@ -6,46 +6,31 @@
       <div class="p-20 clearfix">
         <h4 class="grey-text">
           <i class="md md-dashboard"></i>
-          <span class="hidden-xs">Dashboard</span>
+          <span class="hidden-xs">Commission Settings</span>
         </h4>
       </div>
 
-      <div class="p-20 no-p-t">
-        <div class="card">
-            <div class="table-search">
-              <input type="text" class="form-control" 
-                     ng-model="user_keyword" 
-                     placeholder="Search User" autofocus />
-            </div>
-        </div>
-          
-        <div class="row" ng-if="addEditUser">
+      <div class="p-20 no-p-t">  
+        <div class="row" ng-if="addEdit">
             <div class="col-md-12">
                 <div class="well white">
                     <form class="form-floating">
                       <fieldset>
-                        <legend>Create User {{(selected_parent) ? 'under (' + selected_parent.name + ')':''}}</legend>
+                        <legend>Create Commission</legend>
                         <span class="help-block">Please fill out the following form below.</span>
                         <div class="form-group">
-                          <label for="inputEmail" class="control-label">Email</label>
-                          <input type="text" class="form-control" ng-model="new_user.email">
+                          <label for="inputEmail" class="control-label">Level</label>
+                          <input type="text" class="form-control" ng-model="commission.level">
                         </div>
                         <div class="form-group">
-                          <label for="inputEmail" class="control-label">Name</label>
-                          <input type="text" class="form-control" ng-model="new_user.name">
+                          <label for="inputEmail" class="control-label">Rate</label>
+                          <input type="text" class="form-control" ng-model="commission.rate">
                         </div>
-                        <div class="form-group">
-                          <label for="inputEmail" class="control-label">Password</label>
-                          <input type="password" class="form-control" ng-model="new_user.password">
-                        </div>
-                        <div class="form-group">
-                          <label for="inputEmail" class="control-label">IC No.</label>
-                          <input type="text" class="form-control" ng-model="new_user.ic_no">
-                        </div>
+                        
                       </fieldset>
                       <div>
-                        <button class="btn btn-success" ng-click="saveUser()">Save<div class="ripple-wrapper"></div></button>
-                        <button class="btn btn-default" ng-click="hideAddEditUser()">Cancel<div class="ripple-wrapper"></div></button>
+                        <button class="btn btn-success" ng-click="save()">Save<div class="ripple-wrapper"></div></button>
+                        <button class="btn btn-default" ng-click="hideAddEdit()">Cancel<div class="ripple-wrapper"></div></button>
                       </div>
                     </form>
                 </div>
@@ -57,8 +42,8 @@
               <div class="card no-margin">
                 <div class="table-responsive white">
                   <h3 class="table-title p-20">
-                      Users
-                      <button ng-click="addEditUser = true" type="button" class="btn btn-xs btn-round btn-success"><span class="md md-add"></span><div class="ripple-wrapper"></div></button>
+                      Commission
+                      <button ng-click="addEdit = true" type="button" class="btn btn-xs btn-round btn-success"><span class="md md-add"></span><div class="ripple-wrapper"></div></button>
                   </h3>
 
                   <table class="table table-full table-full-small">
@@ -68,27 +53,23 @@
                     <thead>
                     <tr>
                       <th>No.</th>
-                      <th>Name</th>
-                      <th>Parent</th>
-                      <th>IC No.</th>
-                      <th>Total Children</th>
+                      <th>Level</th>
+                      <th>Rate</th>
                       <th>Enabled</th>
                       <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
 
-                    <tr ng-repeat="row in users | filter:user_keyword track by $index ">
+                    <tr ng-repeat="row in commissions track by $index ">
                       <td class="f20">{{$index+1}}</td>
-                      <td>{{ row.name }}</td>
-                      <td ng-init="parent = getParent(row)">{{ (parent) ? parent[0].name:'-'}}</td>
-                      <td>{{ row.ic_no }}</td>
-                      <td><a href ng-click="checkChildren(row)">{{(row.total_children != undefined) ? row.total_children:'Check'}}</a></td>
+                      <td>{{ row.level }}</td>
+                      <td>{{ row.rate }}</td>
                       <td>{{(row.enabled == 1) ? 1:0}}</td>
                       <td>
                           <ul class="actions">
-                              <li ng-if="row.enabled != 1"><a href ng-click="approveUser(row)">Approve</a></li>
-                              <li><a href ng-click="addUser(row)">Add User</a></li>
+                              <li ng-if="row.enabled != 1"><a href ng-click="enableCommission(row)">Enable</a></li>
+                              <li><a href ng-click="deleteCommission(row)">Delete</a></li>
                           </ul>
                       </td>
                     </tr>
