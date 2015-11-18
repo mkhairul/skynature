@@ -1,4 +1,4 @@
-<div class="dashboard grey lighten-3" ng-controller="ProductController">
+<div class="dashboard grey lighten-3" ng-controller="SalesController">
   <div class="row no-gutter">
 
     <div class="col-sm-12 col-md-12 col-lg-12">
@@ -13,7 +13,7 @@
       <div class="p-20 no-p-t">
         <div class="card">
             <div class="table-search">
-              <input type="text" class="form-control" ng-model="keyword" placeholder="Search Product" autofocus />
+              <input type="text" class="form-control" ng-model="keyword" placeholder="Search Sales" autofocus />
             </div>
         </div>
           
@@ -22,19 +22,27 @@
                 <div class="well white">
                     <form class="form-floating">
                       <fieldset>
-                        <legend>Create Product</legend>
+                        <legend>Create Sales</legend>
                         <span class="help-block">Please fill out the following form below.</span>
                         <div class="form-group">
-                          <label for="inputEmail" class="control-label">Name</label>
-                          <input type="text" class="form-control" ng-model="product.name">
+                          <ui-select ng-model="sale.product" theme="select2" title="Choose a product" search-enabled="false">
+                            <ui-select-match placeholder="Select or search a product in the list...">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="item in products | filter: $select.search">
+                              <div ng-bind-html="item.name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                          </ui-select>
                         </div>
                         <div class="form-group">
-                          <label for="inputEmail" class="control-label">Price</label>
-                          <input type="text" class="form-control" ng-model="product.price">
+                          <ui-select ng-model="sale.user" theme="select2" title="Choose a person" search-enabled="false">
+                            <ui-select-match placeholder="Select or search a user in the list...">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="item in users | filter: $select.search">
+                              <div ng-bind-html="item.name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                          </ui-select>
                         </div>
                       </fieldset>
                       <div>
-                        <button class="btn btn-success" ng-click="saveProduct()">Save<div class="ripple-wrapper"></div></button>
+                        <button class="btn btn-success" ng-click="saveSales()">Save<div class="ripple-wrapper"></div></button>
                         <button class="btn btn-default" ng-click="hideAddEditUser()">Cancel<div class="ripple-wrapper"></div></button>
                       </div>
                     </form>
@@ -48,7 +56,7 @@
 
                 <div class="table-responsive white">
                   <h3 class="table-title p-20">
-                      Product ({{products.length}})
+                      Sales ({{sales.length}})
                       <button ng-click="addEditUser = true" type="button" class="btn btn-xs btn-round btn-success"><span class="md md-add"></span><div class="ripple-wrapper"></div></button>
                   </h3>
 
@@ -59,17 +67,17 @@
                     <thead>
                     <tr>
                       <th>ID</th>
-                      <th>Name</th>
-                      <th>Price</th>
+                      <th>Product</th>
+                      <th>User</th>
                       <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
 
-                    <tr ng-repeat="(key, item) in products | filter:keyword">
+                    <tr ng-repeat="(key, item) in sales | filter:keyword">
                       <td>{{ item.id }}</td>
-                      <td>{{ item.name }}</td>
-                      <td>{{ item.price }}</td>
+                      <td>{{ item.product[0].name }}</td>
+                      <td>{{ item.user[0].name }}</td>
                       <td>
                           <button type="button" 
                                   title="Delete"

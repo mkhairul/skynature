@@ -176,8 +176,11 @@
   <script charset="utf-8" src="assets/js/controllers/quote.js"></script>
   <script charset="utf-8" src="assets/js/controllers/user.js"></script>
   <script charset="utf-8" src="assets/js/controllers/settings.js"></script>
-    
+
   <script charset="utf-8" src="assets/js/controllers/commission.js"></script>
+  <script charset="utf-8" src="assets/js/controllers/settings_commission.js"></script>
+  <script charset="utf-8" src="assets/js/controllers/product.js"></script>
+  <script charset="utf-8" src="assets/js/controllers/sales.js"></script>
   <!-- endbuild -->
 </body>
 </html>

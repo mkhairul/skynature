@@ -35,3 +35,9 @@ Route::post('settings/commission/create', 'SettingsCommissionController@create')
 Route::post('settings/commission/update', 'SettingsCommissionController@update');
 Route::post('settings/commission/delete', 'SettingsCommissionController@remove');
 Route::get('settings/commission', 'SettingsCommissionController@getAll');
+
+Route::get('products', 'ProductController@getAll');
+Route::post('product/create', 'ProductController@create');
+
+Route::get('sales', 'SalesController@getAll');
+Route::post('sales/create', 'SalesController@create');
