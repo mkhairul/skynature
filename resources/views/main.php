@@ -120,6 +120,7 @@
   <script charset="utf-8" src="bower_components/angulartics/dist/angulartics-ga.min.js"></script>
   <script charset="utf-8" src="bower_components/accounting.js/accounting.min.js"></script>
   <script charset="utf-8" src="bower_components/sprintf/dist/sprintf.min.js"></script>
+	<script charset="utf-8" src="bower_components/d3/d3.min.js"></script>
 
   <!-- endbuild -->
   <!-- build:js assets/js/app.min.js -->
@@ -181,6 +182,7 @@
   <script charset="utf-8" src="assets/js/controllers/settings_commission.js"></script>
   <script charset="utf-8" src="assets/js/controllers/product.js"></script>
   <script charset="utf-8" src="assets/js/controllers/sales.js"></script>
+	<script charset="utf-8" src="assets/js/controllers/graph.js"></script>
   <!-- endbuild -->
 </body>
 </html>

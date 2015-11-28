@@ -1,9 +1,10 @@
-app.controller('UploadController', ['$scope', 'Upload', '$timeout', function ($scope, Upload, $timeout) {
+app.controller('UploadController', ['$scope', 'Upload', '$timeout', '$rootScope', '$http',
+																		function ($scope, Upload, $timeout, $rootScope, $http) {
 
   $scope.fileReaderSupported = window.FileReader !== undefined && (window.FileAPI === undefined || FileAPI.html5 !== false);
 
   $scope.$watch('files', function () {
-    $scope.upload($scope.files);
+    //$scope.upload($scope.files);
   });
 
   progressHandler = function(evt) {
@@ -35,23 +36,54 @@ app.controller('UploadController', ['$scope', 'Upload', '$timeout', function ($s
     }
   };
 
-  $scope.upload = function (files) {
-    if (files && files.length) {
-      for (var i = 0; i < files.length; i++) {
-        var file = files[i];
-        Upload.upload({
-          url: '#',
-          file: file
-        })
-        .progress(progressHandler)
-        .success(successHandler);
-      }
-    }
+  $scope.saveProduct = function () {
+		$http.post($rootScope.url + 'product/create', $scope.product)
+		.success(function(data){
+				$scope.$parent.$parent.product.id = data.id
+				$scope.$parent.$parent.products.push($scope.product);
+				$scope.$parent.$parent.product = {};
+				$scope.$parent.$parent.addEditUser = false;
+				uploadFiles(data.id);
+		})
+		.error(function(data){
+		});
+		
+		var uploadFiles = function(product_id){
+			var files = $scope.files
+			if (files && files.length) {
+				for (var i = 0; i < files.length; i++) {
+					var file = files[i];
+					delete file.dataUrl;
+					Upload.upload({
+						url: $rootScope.url + 'product/images',
+						method: 'POST',
+						file: file,
+						sendFieldsAs: 'form',
+						fields: {
+								"product_id": product_id
+						}
+					})
+					.progress(progressHandler)
+					.success(successHandler);
+				}
+			}
+		}
   };
+																			
+  $scope.$watch('product_files', function(files){
+		if (files !== undefined && files !== null && files.length > 0) {
+			if($scope.files == undefined)
+			{
+				$scope.files = [];
+			}
+		  $scope.files = $scope.files.concat(files)
+		}
+	})
 
   $scope.$watch('files', function(files) {
     $scope.formUpload = false;
-    if (files !== undefined && files !== null) {
+    if (files !== undefined && files !== null && files.length > 0) {
+			$rootScope.product_images = $scope.files;
       for (var i = 0; i < files.length; i++) {
         $scope.errorMsg = undefined;
         (thumbHandler)(files[i]);

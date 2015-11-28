@@ -7,10 +7,14 @@ use Illuminate\Routing\Controller;
 use Validator;
 
 use App\User;
+use Auth;
 
 class UserController extends Controller
 {
     public $total_children = 0;
+		public $flat = [];
+		public $bv = [];
+		public $debug_log = [];
     
     public function __construct()
     {
@@ -72,25 +76,69 @@ class UserController extends Controller
         $result = User::where('email', $request->input('email'))->delete();
         return response()->json(['status' => 'ok']);
     }
+	
+		public function getGraph(Request $request){
+				$user_id = $request->input('id') ? $request->input('id'):Auth::user()->id;
+				$result = User::find($user_id);
+        $children = $this->retrieveChildren($user_id, 1);
+        return response()->json(['name' => $result->name,
+																 'children' => $children, 
+																 'total_children' => $this->total_children]);
+		}
+	
+		public function childrenBV(Request $request){
+        $user_id = $request->input('id') ? $request->input('id'):Auth::user()->id;
+        $children = $this->retrieveChildren($user_id, 1, true);
+        return response()->json(['status' => 'ok', 
+																 'bv' => $this->bv,
+																 'children' => $children, 
+																 'log' => $this->debug_log,
+																 'total_children' => $this->total_children]);
+    }
     
     public function children(Request $request){
         $user_id = $request->input('id');
         $children = $this->retrieveChildren($user_id);
-        return response()->json(['status' => 'ok', 'children' => $children, 'total_children' => $this->total_children]);
+        return response()->json(['status' => 'ok', 
+																 'children' => $children, 
+																 'total_children' => $this->total_children]);
     }
+	
+		private function log($str){
+			$this->debug_log[] = $str;
+		}
     
-    private function retrieveChildren($parent_id, $level = 1)
+    private function retrieveChildren($parent_id, $level = 1, $bv = false)
     {
         if($level == 8){ return []; }
         
         $users = [];
         
-        $result = User::where('parent_id', $parent_id)->get();
+				if($bv == true)
+				{
+        	$result = User::with('bv')->where('parent_id', $parent_id)->get();
+				}
+				else
+				{
+					$result = User::where('parent_id', $parent_id)->get();
+				}
+				
         $this->total_children += count($result);
+			
         foreach($result as $child)
         {
-            $children = $this->retrieveChildren($child->id, $level + 1);
-            $users[] = ['user' => $child, 'children' => $children];
+        	$children = $this->retrieveChildren($child->id, $level + 1, $bv);
+          $users[] = ['name' => $child->name, 'user' => $child, 'level' => $level, 'children' => $children];
+					if($bv)
+					{
+						if(count($child->bv) > 0)
+						{
+							array_push($this->bv, [
+								'data' => $child,
+								'level' => $level
+							]);
+						}
+					}
         }
         
         return $users;

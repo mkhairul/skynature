@@ -30,6 +30,8 @@ Route::post('user/create', 'UserController@create');
 Route::post('user/update', 'UserController@update');
 Route::post('user/remove', ['middleware' => 'auth', 'uses' => 'UserController@remove']);
 Route::post('user/children', 'UserController@children');
+Route::post('user/children/bv', 'UserController@childrenBV');
+Route::get('user/graph', 'UserController@getGraph');
 
 Route::post('settings/commission/create', 'SettingsCommissionController@create');
 Route::post('settings/commission/update', 'SettingsCommissionController@update');
@@ -38,6 +40,7 @@ Route::get('settings/commission', 'SettingsCommissionController@getAll');
 
 Route::get('products', 'ProductController@getAll');
 Route::post('product/create', 'ProductController@create');
+Route::post('product/images', 'ProductController@saveImages');
 
 Route::get('sales', 'SalesController@getAll');
 Route::post('sales/create', 'SalesController@create');

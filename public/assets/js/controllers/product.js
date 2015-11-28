@@ -1,6 +1,6 @@
 app.controller('ProductController',
-  ['$window', '$scope', '$rootScope', '$http', '$filter',
-  function($window, $scope, $rootScope, $http, $filter){
+  ['$scope', '$rootScope', '$http', '$filter', 'Upload', '$timeout',
+  function($scope, $rootScope, $http, $filter, Upload, $timeout){
   
   $scope.product = {};
   $scope.products = [];
@@ -18,6 +18,7 @@ app.controller('ProductController',
       $scope.selected_parent = '';
   }
   
+	/*
   $scope.saveProduct = function(){
       $http.post($rootScope.url + 'product/create', $scope.product)
       .success(function(data){
@@ -29,4 +30,12 @@ app.controller('ProductController',
       .error(function(data){
       });
   }
+	*/
+	
+	$rootScope.$watch('product_images', function(files){
+		if (files !== undefined && files !== null) {
+			console.log(files);
+		}
+	})
+	
 }]);

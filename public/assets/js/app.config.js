@@ -2,7 +2,15 @@
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', {
     templateUrl: 'assets/tpl/dashboard.html'
-  }).when('/:folder/:tpl', {
+  }).when('/commission/:usr', {
+      templateUrl: function(attr){
+        return 'assets/tpl/commission.html';
+      }
+    }).when('/graph/:usr', {
+      templateUrl: function(attr){
+        return 'assets/tpl/graph.html';
+      }
+    }).when('/:folder/:tpl', {
       templateUrl: function(attr){
         return 'assets/tpl/' + attr.folder + '/' + attr.tpl + '.html';
       }

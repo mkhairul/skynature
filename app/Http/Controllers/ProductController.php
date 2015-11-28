@@ -7,6 +7,7 @@ use Illuminate\Routing\Controller;
 use Validator;
 
 use App\Product;
+use App\ProductImage;
 
 class ProductController extends Controller
 {
@@ -15,7 +16,7 @@ class ProductController extends Controller
     }
     
     public function getAll(){
-        $result = Product::get();
+        $result = Product::with('images')->get();
         return response()->json($result);
     }
     
@@ -27,6 +28,30 @@ class ProductController extends Controller
         $row->save();
         return response()->json(['status' => 'ok', 'id' => $row->id]);
     }
+	
+		public function saveImages(Request $request){
+			$product_id = $request->input('product_id');
+			if(!$product_id){ 
+				//return response()->json(['message' => 'Need product id', 'log' => print_r($request, true)], 500); 
+			}
+			if ($request->hasFile('file')) {
+				//return response()->json(['message' => 'No file uploaded', 'log' => print_r($request, true)], 500);
+			}
+			
+			$extension = $request->file('file')->getClientOriginalExtension(); // getting image extension
+      $fileName = rand(11111,99999).'.'.$extension; // renameing image
+			$mimetype = $request->file('file')->getMimeType();
+			$filesize = $request->file('file')->getSize();
+			$request->file('file')->move('uploads', $fileName);
+			
+			$row = new ProductImage;
+			$row->product_id = $product_id;
+			$row->name = $fileName;
+			$row->type = $mimetype;
+			$row->size = $filesize;
+			$row->save();
+			return response()->json(['status' => 'ok']);
+		}
     
     public function update(Request $request){
         $id = $request->input('id');

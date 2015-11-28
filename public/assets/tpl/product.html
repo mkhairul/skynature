@@ -17,7 +17,7 @@
             </div>
         </div>
           
-        <div class="row" ng-if="addEditUser">
+        <div ng-controller="UploadController" class="row" ng-if="addEditUser">
             <div class="col-md-12">
                 <div class="well white">
                     <form class="form-floating">
@@ -32,6 +32,39 @@
                           <label for="inputEmail" class="control-label">Price</label>
                           <input type="text" class="form-control" ng-model="product.price">
                         </div>
+												<div>
+
+													<div class="form-group">
+														<div class="btn btn-info" multiple ng-multiple ngf-select ng-model="product_files">Upload with button</div>
+													</div>
+
+													<ul style="clear:both" ng-show="files.length > 0" class="response list-unstyled">
+														<li class="sel-file" ng-repeat="f in files track by $index">
+															<img ng-show="f.dataUrl" ng-src="{{f.dataUrl}}" class="thumb">
+															<span class="progress" ng-show="f.progress >= 0">
+																<div style="width:{{f.progress}}%">{{f.progress}}%</div>
+															</span>
+															<button class="button" ng-click="f.upload.abort();f.upload.aborted=true"
+																			ng-show="f.upload != null && f.progress < 100 && !f.upload.aborted">Abort</button>
+															{{f.name}} - size: {{f.size}}B - type: {{f.type}}
+															<a ng-show="f.result" href="javascript:void(0)" ng-click="f.showDetail = !f.showDetail">details</a>
+															<div ng-show="f.showDetail">
+																<br/>
+																<div data-ng-show="f.result.result == null">{{f.result}}</div>
+																<ul>
+																	<li ng-repeat="item in f.result.result">
+																		<div data-ng-show="item.name">file name: {{item.name}}</div>
+																		<div data-ng-show="item.fieldName">name: {{item.fieldName}}</div>
+																		<div data-ng-show="item.size">size on the serve: {{item.size}}</div>
+																		<div data-ng-show="item.value">value: {{item.value}}</div>
+																	</li>
+																</ul>
+																<div data-ng-show="f.result.requestHeaders" class="reqh">request headers: {{f.result.requestHeaders}}</div>
+															</div>
+														</li>
+													</ul>
+
+												</div>
                       </fieldset>
                       <div>
                         <button class="btn btn-success" ng-click="saveProduct()">Save<div class="ripple-wrapper"></div></button>
@@ -68,7 +101,12 @@
 
                     <tr ng-repeat="(key, item) in products | filter:keyword">
                       <td>{{ item.id }}</td>
-                      <td>{{ item.name }}</td>
+                      <td>
+												<a ng-show="item.images.length > 0"  ng-href="uploads/{{item.images[0].name}}">
+													<img ng-src="uploads/{{item.images[0].name}}" class="product-thumbnail">
+												</a>
+												{{ item.name }}
+											</td>
                       <td>{{ item.price }}</td>
                       <td>
                           <button type="button" 

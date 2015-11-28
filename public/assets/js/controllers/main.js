@@ -36,6 +36,11 @@ app.controller('MainController',
   $scope.showIntroduction = function(){
     intro.show();
   };
+		
+	$scope.goTo = function(url){
+		console.log('going to: ' + url);
+		$location.path(url);
+	}
 
   /*
   var intro = $alert({

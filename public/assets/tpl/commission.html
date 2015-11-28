@@ -56,9 +56,10 @@
 
                 <div class="table-responsive white">
                   <h3 class="table-title p-20">
-                      Commission ({{(commission) ? commission.length:0}})
+                      Buy Value ({{(bv) ? bv.length:0}})
                       <button ng-click="addEditUser = true" type="button" class="btn btn-xs btn-round btn-success"><span class="md md-add"></span><div class="ripple-wrapper"></div></button>
                   </h3>
+									<h4 class="table-title">Total Buy Value: {{total_bv}}</h4>
 
                   <table class="table table-full table-full-small">
                     <colgroup>
@@ -67,27 +68,36 @@
                     <thead>
                     <tr>
                       <th>ID</th>
-                      <th>Product</th>
-                      <th>User</th>
+                      <th>Name</th>
+											<th>Email</th>
+											<th>Value</th>
+											<th>Level</th>
+											<th>Commission</th>
+											<th>CV</th>
+											<th>Date</th>
                       <th>Actions</th>
                     </tr>
                     </thead>
-                    <tbody>
-
-                    <tr ng-repeat="(key, item) in sales | filter:keyword">
-                      <td>{{ item.id }}</td>
-                      <td>{{ item.product[0].name }}</td>
-                      <td>{{ item.user[0].name }}</td>
-                      <td>
-                          <button type="button" 
-                                  title="Delete"
-                                  data-animation="am-fade-and-slide-top" 
-                                  data-template="assets/tpl/partials/confirm_delete.html" 
-                                  bs-modal="modal"
-                                  class="btn btn-xs btn-round btn-danger" 
-                                  ng-click="setDeleteUser(item, $index)"><span class="md md-delete"></span><div class="ripple-wrapper"></div></button>
-                      </td>
-                    </tr>
+                    <tbody ng-repeat="user in bv | filter:keyword">
+											<tr ng-repeat="item in user.data.bv">
+												<td>{{ user.data.id }}</td>
+												<td>{{ user.data.name }}</td>
+												<td>{{ user.data.email }}</td>
+												<td>{{ item.value }}</td>
+												<td>{{ user.level }} </td>
+												<td>{{ (getCommission(user.level).rate) ? getCommission(user.level).rate:'-' }}</td>
+												<td>{{ calculateCommission(getCommission(user.level).rate, item.value) }}</td>
+												<td>{{ item.created_at }}</td>
+												<td>
+														<button type="button" 
+																		title="Delete"
+																		data-animation="am-fade-and-slide-top" 
+																		data-template="assets/tpl/partials/confirm_delete.html" 
+																		bs-modal="modal"
+																		class="btn btn-xs btn-round btn-danger" 
+																		ng-click="setDeleteUser(item, $index)"><span class="md md-delete"></span><div class="ripple-wrapper"></div></button>
+												</td>
+											</tr>
                     </tbody>
                   </table>
                 </div>
