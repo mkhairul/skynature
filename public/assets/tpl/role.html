@@ -1,0 +1,133 @@
+<div class="dashboard grey lighten-3" ng-controller="SettingsCommissionController">
+  <div class="row no-gutter">
+
+    <div class="col-sm-12 col-md-12 col-lg-9" style="background:#F9F9F9;">
+
+      <div class="p-20 clearfix">
+        <h4 class="grey-text">
+          <i class="md md-dashboard"></i>
+          <span class="hidden-xs">Role Settings</span>
+        </h4>
+      </div>
+
+      <div class="p-20 no-p-t">  
+        <div class="row" ng-if="addEdit">
+            <div class="col-md-12">
+                <div class="well white">
+                    <form class="form-floating">
+                      <fieldset>
+                        <legend>Create Role</legend>
+                        <span class="help-block">Please fill out the following form below.</span>
+                        <div class="form-group">
+                          <label for="inputEmail" class="control-label">Level</label>
+                          <input type="text" class="form-control" ng-model="commission.level">
+                        </div>
+                        <div class="form-group">
+                          <label for="inputEmail" class="control-label">Rate</label>
+                          <input type="text" class="form-control" ng-model="commission.rate">
+                        </div>
+                        
+                      </fieldset>
+                      <div>
+                        <button class="btn btn-success" ng-click="save()">Save<div class="ripple-wrapper"></div></button>
+                        <button class="btn btn-default" ng-click="hideAddEdit()">Cancel<div class="ripple-wrapper"></div></button>
+                      </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+          
+        <div class="row users">
+            <div class="col-md-12">
+              <div class="card no-margin">
+                <div class="table-responsive white">
+                  <h3 class="table-title p-20">
+                      Commission
+                      <button ng-click="addEdit = true" type="button" class="btn btn-xs btn-round btn-success"><span class="md md-add"></span><div class="ripple-wrapper"></div></button>
+                  </h3>
+
+                  <table class="table table-full table-full-small">
+                    <colgroup>
+                      <col class="auto-cell-size p-r-20" />
+                    </colgroup>
+                    <thead>
+                    <tr>
+                      <th>No.</th>
+                      <th>Level</th>
+                      <th>Rate</th>
+                      <th>Enabled</th>
+                      <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr ng-repeat="row in commissions track by $index ">
+                      <td class="f20">{{$index+1}}</td>
+                      <td>{{ row.level }}</td>
+                      <td>{{ row.rate }}</td>
+                      <td>{{(row.enabled == 1) ? 1:0}}</td>
+                      <td>
+                          <ul class="actions">
+                              <li ng-if="row.enabled != 1"><a href ng-click="enableCommission(row)">Enable</a></li>
+                              <li><a href ng-click="deleteCommission(row)">Delete</a></li>
+                          </ul>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+        </div>
+        
+        <div class="row" ng-show="showError">
+            <div class="col-md-12">
+              <div class="bs-component">
+                <div class="alert alert-dismissible alert-danger">
+                  <button type="button" class="close" data-dismiss="alert">×</button>
+                  <h4>Item Not Found!</h4>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="grey-text small p-t-20" ng-cloak>SkyNature - v{{APP.version}}</div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-12">
+
+      <div class="p-20">
+        <h4 class="grey-text m-b-30">FAQ</h4>
+
+        <div class="card">
+            <ul class="list-group">
+              <li class="list-group-item">
+                <i class="md md-android"></i>
+                How to create user
+              </li>
+              <li class="list-group-item">
+                <i class="md md-add-box"></i>
+                Setting Commission
+              </li>
+              <li class="list-group-item">
+                <i class="md md-apps"></i>
+                Porta ac consectetur ac
+              </li>
+              <li class="list-group-item">
+                <i class="md md-radio"></i>
+                Vestibulum at eros
+              </li>
+              <li class="list-group-item">
+                <i class="md md-adjust"></i>
+                Dapibus ac facilisis in
+              </li>
+            </ul>
+          </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+</div>

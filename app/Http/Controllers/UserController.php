@@ -41,6 +41,11 @@ class UserController extends Controller
             $user->parent_id = $request->input('parent')['id'];
         }
         $user->ic_no = $request->input('ic_no');
+				$user->type = $request->input('type');
+				$user->bank_name = $request->input('bank_name');
+				$user->bank_acc = $request->input('bank_acc');
+				$user->bank_swift = $request->input('bank_swift');
+				$user->address = $request->input('address');
         $user->save();
         return response()->json(['status' => 'ok', 'id' => $user->id]);
     }
@@ -67,6 +72,30 @@ class UserController extends Controller
         if($request->input('enabled'))
         {
             $user->enabled = $request->input('enabled');
+        }
+				if($request->input('ic_no'))
+        {
+            $user->enabled = $request->input('ic_no');
+        }
+				if($request->input('type'))
+        {
+            $user->enabled = $request->input('type');
+        }
+				if($request->input('bank_name'))
+        {
+            $user->enabled = $request->input('bank_name');
+        }
+				if($request->input('bank_acc'))
+        {
+            $user->enabled = $request->input('bank_acc');
+        }
+				if($request->input('bank_swift'))
+        {
+            $user->enabled = $request->input('bank_swift');
+        }
+				if($request->input('address'))
+        {
+            $user->enabled = $request->input('address');
         }
         $user->save();
         return response()->json(['status' => 'ok']);

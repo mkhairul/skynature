@@ -38,9 +38,33 @@
                           <label for="inputEmail" class="control-label">Password</label>
                           <input type="password" class="form-control" ng-model="new_user.password">
                         </div>
+												<div class="form-group">
+                          <label for="inputEmail" class="control-label">Address</label>
+                          <textarea class="form-control vertical" rows="3" id="textArea" placeholder="" ng-model="new_user.address"></textarea>
+                        </div>
                         <div class="form-group">
                           <label for="inputEmail" class="control-label">IC No.</label>
                           <input type="text" class="form-control" ng-model="new_user.ic_no">
+                        </div>
+												<div class="form-group">
+                          <label for="inputEmail" class="control-label">Type</label>
+													<select ng-model="new_user.type">
+														<option value="individual">Individual</option>
+														<option value="company">Company</option>
+													</select>
+                        </div>
+												<div class="form-group">
+                          <label for="inputEmail" class="control-label">Bank Name</label>
+                          <input type="text" class="form-control" ng-model="new_user.bank_name">
+                        </div>
+												<div class="form-group">
+                          <label for="inputEmail" class="control-label">Account No.</label>
+                          <input type="text" class="form-control" ng-model="new_user.bank_acc">
+                        </div>
+												<div class="form-group">
+                          <label for="inputEmail" class="control-label">Swift Code</label>
+                          <input type="text" class="form-control" ng-model="new_user.bank_swift">
+													<span class="help-block">if required</span>
                         </div>
                       </fieldset>
                       <div>
