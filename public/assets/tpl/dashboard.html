@@ -66,6 +66,18 @@
                           <input type="text" class="form-control" ng-model="new_user.bank_swift">
 													<span class="help-block">if required</span>
                         </div>
+												<div class="form-group">
+                          <label for="inputEmail" class="control-label">Role</label>
+													<select ng-model="new_user.role">
+														<option value="{{row.id}}" ng-repeat="row in roles track by $index">{{row.name}}</option>
+													</select>
+                        </div>
+												<div class="form-group">
+                          <label for="inputEmail" class="control-label">Membership</label>
+													<select ng-model="new_user.membership">
+														<option value="{{row.id}}" ng-repeat="row in memberships track by $index">{{row.name}}</option>
+													</select>
+                        </div>
                       </fieldset>
                       <div>
                         <button class="btn btn-success" ng-click="saveUser()">Save<div class="ripple-wrapper"></div></button>
@@ -92,10 +104,13 @@
                     <thead>
                     <tr>
                       <th>No.</th>
+											<th>SkyID</th>
                       <th>Name</th>
                       <th>Parent</th>
                       <th>IC No.</th>
                       <th>Total Children</th>
+											<th>Membership</th>
+											<th>Role</th>
                       <th>Enabled</th>
                       <th>Action</th>
                     </tr>
@@ -104,10 +119,13 @@
 
                     <tr ng-repeat="row in users | filter:user_keyword track by $index ">
                       <td class="f20">{{$index+1}}</td>
+											<td>{{ row.sky_id }}</td>
                       <td>{{ row.name }}</td>
                       <td ng-init="parent = getParent(row)">{{ (parent) ? parent[0].name:'-'}}</td>
                       <td>{{ row.ic_no }}</td>
                       <td><a href ng-click="checkChildren(row)">{{(row.total_children != undefined) ? row.total_children:'Check'}}</a></td>
+											<td>{{ getMembership(row.membership_id) }}</td>
+											<td>{{ getRole(row.role_id) }}</td>
                       <td>{{(row.enabled == 1) ? 1:0}}</td>
                       <td>
                           <ul class="actions">

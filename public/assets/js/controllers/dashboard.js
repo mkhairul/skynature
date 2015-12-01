@@ -4,6 +4,24 @@ app.controller('DashboardController',
 
   $rootScope.pageTitle = 'Dashboard';
   $scope.selected_parent = '';
+		
+	$http.get($rootScope.url + 'settings/role')
+	.success(function(data){
+		$scope.roles = data;
+		console.log(data);
+	})
+	.error(function(data){
+		
+	})
+	
+	$http.get($rootScope.url + 'settings/membership')
+	.success(function(data){
+		$scope.memberships = data;
+		console.log(data);
+	})
+	.error(function(data){
+		
+	})
 
   $http.get($rootScope.url + 'users')
   .success(function(data){
@@ -12,6 +30,18 @@ app.controller('DashboardController',
   })
   .error(function(data){
   });
+		
+	$scope.getRole = function(id){
+		if(!id){ return ''; }
+		var result = $filter('filter')($scope.roles, { "id":id });
+		return (result) ? result[0]:'-';
+	}
+	
+	$scope.getMembership = function(id){
+		if(!id){ return ''; }
+		var result = $filter('filter')($scope.memberships, { "id":id });
+		return (result) ? result[0]:'-';
+	}
       
   $scope.hideAddEditUser = function(){
       $scope.addEditUser = false;
@@ -27,7 +57,9 @@ app.controller('DashboardController',
       
   $scope.saveUser = function(){
       $http.post($rootScope.url + 'user/create', $scope.new_user)
-      .success(function(){
+      .success(function(data){
+					$scope.new_user.id = data.id;
+					$scope.new_user.sky_id = data.sky_id;
           $scope.users.push($scope.new_user);
           $scope.new_user = {};
           $scope.addEditUser = false;

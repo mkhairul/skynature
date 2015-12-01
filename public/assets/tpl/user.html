@@ -40,6 +40,47 @@
                       <input class="form-control" id="focusedInput" type="password" ng-model="user.password">
                       <label class="control-label" for="focusedInput">Password</label>
                     </div>
+										
+										<div class="form-group">
+											<label for="inputEmail" class="control-label">Address</label>
+											<textarea class="form-control vertical" rows="3" id="textArea" placeholder="" ng-model="user.address"></textarea>
+										</div>
+										<div class="form-group">
+											<label for="inputEmail" class="control-label">IC No.</label>
+											<input type="text" class="form-control" ng-model="user.ic_no">
+										</div>
+										<div class="form-group">
+											<label for="inputEmail" class="control-label">Type</label>
+											<select ng-model="user.type">
+												<option value="individual">Individual</option>
+												<option value="company">Company</option>
+											</select>
+										</div>
+										<div class="form-group">
+											<label for="inputEmail" class="control-label">Bank Name</label>
+											<input type="text" class="form-control" ng-model="user.bank_name">
+										</div>
+										<div class="form-group">
+											<label for="inputEmail" class="control-label">Account No.</label>
+											<input type="text" class="form-control" ng-model="user.bank_acc">
+										</div>
+										<div class="form-group">
+											<label for="inputEmail" class="control-label">Swift Code</label>
+											<input type="text" class="form-control" ng-model="user.bank_swift">
+											<span class="help-block">if required</span>
+										</div>
+										<div class="form-group">
+											<label for="inputEmail" class="control-label">Role</label>
+											<select ng-model="user.role">
+												<option value="{{row.id}}" ng-repeat="row in roles track by $index">{{row.name}}</option>
+											</select>
+										</div>
+										<div class="form-group">
+											<label for="inputEmail" class="control-label">Membership</label>
+											<select ng-model="user.membership">
+												<option value="{{row.id}}" ng-repeat="row in memberships track by $index">{{row.name}}</option>
+											</select>
+										</div>
                     
                     <div class="form-group">
                       <button type="submit" ng-click="saveUser()" class="btn btn-primary">Save</button>

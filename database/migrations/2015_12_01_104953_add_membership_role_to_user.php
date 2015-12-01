@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddOtherUserColumns extends Migration
+class AddMembershipRoleToUser extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class AddOtherUserColumns extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('type'); // company or individual
-						$table->string('bank_name');
-						$table->string('bank_acc');
-						$table->string('bank_swift')->nullable();
-						$table->longText('address');
+            //
+						$table->integer('membership_id');
+						$table->integer('role_id');
+						$table->string('sky_id');
         });
     }
 
@@ -30,7 +29,7 @@ class AddOtherUserColumns extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-						$table->dropColumn(['type', 'bank_name', 'bank_acc', 'bank_swift', 'address']);
+						$table->dropColumn(['membership_id', 'role_id']);
         });
     }
 }

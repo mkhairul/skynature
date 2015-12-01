@@ -8,6 +8,7 @@ use Validator;
 
 use App\User;
 use Auth;
+use Jenssegers\Optimus\Optimus;
 
 class UserController extends Controller
 {
@@ -18,6 +19,7 @@ class UserController extends Controller
     
     public function __construct()
     {
+			$this->optimus = new Optimus(1580030173, 59260789, 1163945558);
     }
     
     public function getAll(){
@@ -46,8 +48,17 @@ class UserController extends Controller
 				$user->bank_acc = $request->input('bank_acc');
 				$user->bank_swift = $request->input('bank_swift');
 				$user->address = $request->input('address');
+				$user->membership_id = $request->input('membership');
+				$user->role_id = $request->input('role');
         $user->save();
-        return response()->json(['status' => 'ok', 'id' => $user->id]);
+				
+				$user->sky_id = 'SKY' . $this->optimus->encode($user->id);
+				$user->save();
+				
+			
+        return response()->json(['status' => 'ok', 
+																 'sky_id' => $user->sky_id,
+																 'id' => $user->id]);
     }
     
     public function update(Request $request){

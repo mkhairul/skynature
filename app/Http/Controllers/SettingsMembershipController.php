@@ -6,48 +6,39 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Validator;
 
-use Kodeine\Acl\Models\Eloquent\Role;
+use App\Membership;
 
-class SettingsRoleController extends Controller
+class SettingsMembershipController extends Controller
 {
     public function __construct()
     {
     }
     
     public function getAll(){
-        $result = Role::get();
+        $result = Membership::get();
         return response()->json($result);
     }
     
     public function create(Request $request){
-        $row = new Role;
+        $row = new Membership;
         $row->name = $request->input('name');
-        $row->slug = $request->input('slug');
-				$row->description = $request->input('desc');
         $row->save();
         return response()->json(['status' => 'ok', 'id' => $row->id]);
     }
     
     public function update(Request $request){
         $id = $request->input('id');
-        $comm = SettingsCommission::find($id);
-        if(!$comm)
+        $row = Membership::find($id);
+        if(!$row)
         {
-            return response()->json(['message' => 'Commission does not exists'], 500);
+            return response()->json(['message' => 'Membership does not exists'], 500);
         }
-        if($request->input('rate'))
+        if($request->input('name'))
         {
-            $comm->rate = $request->input('rate');
+            $row->name = $request->input('rate');
         }
-        if($request->input('level'))
-        {
-            $comm->level = $request->input('level');
-        }
-        if($request->input('enabled'))
-        {
-            $comm->enabled = $request->input('enabled');
-        }
-        $comm->save();
+        
+        $row->save();
         return response()->json(['status' => 'ok']);
     }
     
