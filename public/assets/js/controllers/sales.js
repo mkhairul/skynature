@@ -18,6 +18,7 @@ app.controller('SalesController',
   $http.get($rootScope.url + 'products')
   .success(function(data){
       $scope.products = data;
+			console.log('products');
       console.log($scope.products);
   })
   .error(function(data){
@@ -58,4 +59,23 @@ app.controller('SalesController',
       .error(function(data){
       });
   }
+	
+	$scope.confirmDelete = function(confirm)
+  {
+      if(confirm === true)
+      {
+          $http.post($rootScope.url + 'sales/remove', {id:$scope.setDeleteItem.item.id})
+          .success(function(data){
+              $scope.sales.splice($scope.setDeleteItem.index, 1);
+          })
+          .error(function(data){
+              console.log(data);
+          })
+      }
+  }
+ 
+ $scope.setDeleteItem = function(item, index){
+     $scope.setDeleteItem.item = item;
+     $scope.setDeleteItem.index = index;
+ }
 }]);

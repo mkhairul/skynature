@@ -51,3 +51,4 @@ Route::post('product/images', 'ProductController@saveImages');
 
 Route::get('sales', 'SalesController@getAll');
 Route::post('sales/create', 'SalesController@create');
+Route::post('sales/remove', 'SalesController@remove');

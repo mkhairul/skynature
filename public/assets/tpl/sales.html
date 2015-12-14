@@ -24,22 +24,18 @@
                       <fieldset>
                         <legend>Create Sales</legend>
                         <span class="help-block">Please fill out the following form below.</span>
-                        <div class="form-group">
-                          <ui-select ng-model="sale.product" theme="select2" title="Choose a product" search-enabled="false">
-                            <ui-select-match placeholder="Select or search a product in the list...">{{$select.selected.name}}</ui-select-match>
-                            <ui-select-choices repeat="item in products | filter: $select.search">
-                              <div ng-bind-html="item.name | highlight: $select.search"></div>
-                            </ui-select-choices>
-                          </ui-select>
-                        </div>
-                        <div class="form-group">
-                          <ui-select ng-model="sale.user" theme="select2" title="Choose a person" search-enabled="false">
-                            <ui-select-match placeholder="Select or search a user in the list...">{{$select.selected.name}}</ui-select-match>
-                            <ui-select-choices repeat="item in users | filter: $select.search">
-                              <div ng-bind-html="item.name | highlight: $select.search"></div>
-                            </ui-select-choices>
-                          </ui-select>
-                        </div>
+												<div class="form-group">
+													<label class="control-label">Select Product</label>
+													<select class="form-control" ng-model="sale.product.id">
+														<option ng-repeat="item in products" value="{{item.id}}">{{item.name}}</option>
+													</select>
+												</div>
+												<div class="form-group">
+													<label class="control-label">Select User</label>
+													<select class="form-control" ng-model="sale.user.id">
+														<option ng-repeat="item in users" value="{{item.id}}">{{item.name}}</option>
+													</select>
+												</div>
                       </fieldset>
                       <div>
                         <button class="btn btn-success" ng-click="saveSales()">Save<div class="ripple-wrapper"></div></button>
@@ -85,7 +81,7 @@
                                   data-template="assets/tpl/partials/confirm_delete.html" 
                                   bs-modal="modal"
                                   class="btn btn-xs btn-round btn-danger" 
-                                  ng-click="setDeleteUser(item, $index)"><span class="md md-delete"></span><div class="ripple-wrapper"></div></button>
+                                  ng-click="setDeleteItem(item, $index)"><span class="md md-delete"></span><div class="ripple-wrapper"></div></button>
                       </td>
                     </tr>
                     </tbody>
