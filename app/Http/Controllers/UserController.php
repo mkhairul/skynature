@@ -113,8 +113,8 @@ class UserController extends Controller
     }
     
     public function remove(Request $request){
-        $result = User::where('email', $request->input('email'))->delete();
-        return response()->json(['status' => 'ok']);
+        $result = User::where('email', $request->input('id'))->delete();
+        return response()->json(['status' => 'ok', 'debug' => $request->input('id')]);
     }
 	
 		public function getGraph(Request $request){
