@@ -36,6 +36,10 @@
 														<option ng-repeat="item in users" value="{{item.id}}">{{item.name}}</option>
 													</select>
 												</div>
+												<div class="form-group">
+													<label for="inputEmail" class="control-label">Quantity</label>
+													<input type="text" class="form-control" ng-model="sale.quantity" value="1">
+												</div>
                       </fieldset>
                       <div>
                         <button class="btn btn-success" ng-click="saveSales()">Save<div class="ripple-wrapper"></div></button>
@@ -64,6 +68,9 @@
                     <tr>
                       <th>ID</th>
                       <th>Product</th>
+											<th>Unit Price</th>
+											<th>Quantity</th>
+											<th>Total</th>
                       <th>User</th>
                       <th>Actions</th>
                     </tr>
@@ -73,6 +80,9 @@
                     <tr ng-repeat="(key, item) in sales | filter:keyword">
                       <td>{{ item.id }}</td>
                       <td>{{ item.product[0].name }}</td>
+											<td>{{ item.product[0].price }}</td>
+											<td>{{ item.quantity }}</td>
+											<td>{{ item.product[0].price * item.quantity }}</td>
                       <td>{{ item.user[0].name }}</td>
                       <td>
                           <button type="button" 

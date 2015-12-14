@@ -25,6 +25,7 @@ class SalesController extends Controller
         $row = new Sales;
         $row->product_id = $request->input('product')['id'];
         $row->user_id = $request->input('user')['id'];
+				$row->quantity = $request->input('quantity');
         $row->save();
         
         // Get the product details
@@ -33,7 +34,7 @@ class SalesController extends Controller
         $bv = new BV;
         $bv->user_id = $row->user_id;
         $bv->sales_id = $row->id;
-        $bv->value = $product->price;
+        $bv->value = $product->price * $row->quantity;
         $bv->save();
         
         return response()->json(['status' => 'ok', 'id' => $row->id]);
