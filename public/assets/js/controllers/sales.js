@@ -64,9 +64,9 @@ app.controller('SalesController',
   {
       if(confirm === true)
       {
-          $http.post($rootScope.url + 'sales/remove', {id:$scope.setDeleteItem.item.id})
+          $http.post($rootScope.url + 'sales/remove', {id:$scope.deleteItem.item.id})
           .success(function(data){
-              $scope.sales.splice($scope.setDeleteItem.index, 1);
+              $scope.sales.splice($scope.deleteItem.index, 1);
           })
           .error(function(data){
               console.log(data);
@@ -75,7 +75,8 @@ app.controller('SalesController',
   }
  
  $scope.setDeleteItem = function(item, index){
-     $scope.setDeleteItem.item = item;
-     $scope.setDeleteItem.index = index;
+     if($scope.deleteItem == undefined){ $scope.deleteItem = {}; }
+     $scope.deleteItem.item = item;
+     $scope.deleteItem.index = index;
  }
 }]);

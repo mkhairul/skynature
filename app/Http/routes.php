@@ -48,6 +48,7 @@ Route::post('settings/membership/delete', 'SettingsMembershipController@remove')
 Route::get('products', 'ProductController@getAll');
 Route::post('product/create', 'ProductController@create');
 Route::post('product/images', 'ProductController@saveImages');
+Route::post('product/remove', 'ProductController@remove');
 
 Route::get('sales', 'SalesController@getAll');
 Route::post('sales/create', 'SalesController@create');
