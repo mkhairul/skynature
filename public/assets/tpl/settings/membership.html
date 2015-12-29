@@ -58,9 +58,13 @@
                       <td class="f20">{{$index+1}}</td>
                       <td>{{ row.name }}</td>
                       <td>
-                          <ul class="actions">
-                              <li><a href ng-click="deleteMembership(row)">Delete</a></li>
-                          </ul>
+                          <button type="button" 
+                                  title="Delete"
+                                  data-animation="am-fade-and-slide-top" 
+                                  data-template="assets/tpl/partials/confirm_delete.html" 
+                                  bs-modal="modal"
+                                  class="btn btn-xs btn-round btn-danger" 
+                                  ng-click="setDeleteItem(item, $index)"><span class="md md-delete"></span><div class="ripple-wrapper"></div></button>
                       </td>
                     </tr>
                     </tbody>

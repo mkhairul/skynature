@@ -43,7 +43,7 @@ class SettingsMembershipController extends Controller
     }
     
     public function remove(Request $request){
-        $result = Role::where('id', $request->input('id'))->delete();
+        $result = Membership::where('id', $request->input('id'))->delete();
         return response()->json(['status' => 'ok']);
     }
 }
