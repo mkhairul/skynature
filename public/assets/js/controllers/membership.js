@@ -53,7 +53,7 @@ app.controller('MembershipController',
       {
           $http.post($rootScope.url + 'settings/membership/delete', {id:$scope.deleteItem.item.id})
           .success(function(data){
-              $scope.membership.splice($scope.deleteItem.index, 1);
+              $scope.memberships.splice($scope.deleteItem.index, 1);
           })
           .error(function(data){
               console.log(data);
