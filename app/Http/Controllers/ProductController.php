@@ -77,7 +77,7 @@ class ProductController extends Controller
     }
     
     public function remove(Request $request){
-        $result = SettingsCommission::where('id', $request->input('id'))->delete();
+        $result = Product::where('id', $request->input('id'))->delete();
         return response()->json(['status' => 'ok']);
     }
 }

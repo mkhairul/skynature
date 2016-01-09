@@ -32,6 +32,26 @@ app.controller('ProductController',
   }
 	*/
 	
+	$scope.confirmDelete = function(confirm)
+  {
+      if(confirm === true)
+      {
+          $http.post($rootScope.url + 'product/remove', {id:$scope.deleteItem.item.id})
+          .success(function(data){
+              $scope.products.splice($scope.deleteItem.index, 1);
+          })
+          .error(function(data){
+              console.log(data);
+          })
+      }
+  }
+	
+	$scope.setDeleteItem = function(item, index){
+		 if($scope.deleteItem == undefined){ $scope.deleteItem = {}; }
+     $scope.deleteItem.item = item;
+     $scope.deleteItem.index = index;
+ 	}
+	
 	$rootScope.$watch('product_images', function(files){
 		if (files !== undefined && files !== null) {
 			console.log(files);

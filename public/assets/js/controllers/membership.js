@@ -59,4 +59,24 @@ app.controller('MembershipController',
       .error(function(data){
       });
   }
+	
+	$scope.confirmDelete = function(confirm)
+  {
+      if(confirm === true)
+      {
+          $http.post($rootScope.url + 'settings/membership/delete', {id:$scope.deleteItem.item.id})
+          .success(function(data){
+              $scope.memberships.splice($scope.deleteItem.index, 1);
+          })
+          .error(function(data){
+              console.log(data);
+          })
+      }
+  }
+ 
+ $scope.setDeleteItem = function(item, index){
+     if($scope.deleteItem == undefined){ $scope.deleteItem = {}; }
+     $scope.deleteItem.item = item;
+     $scope.deleteItem.index = index;
+ }
 }])
