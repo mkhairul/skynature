@@ -72,7 +72,15 @@
                       <td>
                           <ul class="actions">
 														<li><a href ng-click="showAddEdit(row)">Edit</a></li>
-                            <li><a href ng-click="deleteMembership(row)">Delete</a></li>
+                            <li>
+															<button type="button" 
+                                  title="Delete"
+                                  data-animation="am-fade-and-slide-top" 
+                                  data-template="assets/tpl/partials/confirm_delete.html" 
+                                  bs-modal="modal"
+                                  class="btn btn-xs btn-round btn-danger" 
+                                  ng-click="setDeleteItem(row, $index)"><span class="md md-delete"></span><div class="ripple-wrapper"></div></button>
+														</li>
                           </ul>
                       </td>
                     </tr>
