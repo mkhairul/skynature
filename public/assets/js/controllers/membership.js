@@ -13,6 +13,11 @@ app.controller('MembershipController',
 		
 	})
 	
+	$scope.showAddEdit = function(row){
+			$scope.membership = row;
+			$scope.addEdit = true;
+	}
+	
 	$scope.hideAddEdit = function(){
       $scope.addEdit = false;
   }
@@ -38,8 +43,16 @@ app.controller('MembershipController',
 	$scope.save = function(){
       $http.post($rootScope.url + 'settings/membership/create', $scope.membership)
       .success(function(data){
-          $scope.membership.id = data.id
-          $scope.memberships.push($scope.membership);
+					if($scope.membership.id != undefined)
+					{
+						$filter = $filter('filter')($scope.memberships, { id: $scope.membership.id })[0];
+						console.log($filter);
+					}
+					else
+					{
+						$scope.membership.id = data.id
+						$scope.memberships.push($scope.membership);
+					}          
           $scope.membership = {};
 					$scope.hideAddEdit();
       })

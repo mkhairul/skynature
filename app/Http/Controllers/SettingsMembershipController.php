@@ -20,8 +20,17 @@ class SettingsMembershipController extends Controller
     }
     
     public function create(Request $request){
-        $row = new Membership;
+				$id = $request->input('id');
+			
+				if($id){
+					$row = Membership::where('id', $id)->first();
+				}
+				else{
+					$row = new Membership;
+				}
         $row->name = $request->input('name');
+				$row->discount = $request->input('discount');
+				$row->direct_bonus = $request->input('direct_bnous');
         $row->save();
         return response()->json(['status' => 'ok', 'id' => $row->id]);
     }

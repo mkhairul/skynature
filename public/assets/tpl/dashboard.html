@@ -94,7 +94,7 @@
                 <div class="table-responsive white">
                   <h3 class="table-title p-20">
                       Users
-                      <button ng-click="addEditUser = true" type="button" class="btn btn-xs btn-round btn-success"><span class="md md-add"></span><div class="ripple-wrapper"></div></button>
+                      <!--<button ng-click="addEditUser = true" type="button" class="btn btn-xs btn-round btn-success"><span class="md md-add"></span><div class="ripple-wrapper"></div></button>-->
                   </h3>
 
                   <table class="table table-full table-full-small">
@@ -124,7 +124,7 @@
                       <td ng-init="parent = getParent(row)">{{ (parent) ? parent[0].name:'-'}}</td>
                       <td>{{ row.ic_no }}</td>
                       <td><a href ng-click="checkChildren(row)">{{(row.total_children != undefined) ? row.total_children:'Check'}}</a></td>
-											<td>{{ getMembership(row.membership_id) }}</td>
+											<td>{{ row.membership[0].name }}</td>
 											<td>{{ getRole(row.role_id) }}</td>
                       <td>{{(row.enabled == 1) ? 1:0}}</td>
                       <td>

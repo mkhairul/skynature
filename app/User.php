@@ -43,4 +43,9 @@ class User extends Model implements AuthenticatableContract,
 		{
 			return $this->hasMany('App\BV', 'user_id', 'id');
 		}
+																			
+    public function membership()
+    {
+        return $this->hasMany('App\Membership', 'id', 'membership_id');
+    }
 }

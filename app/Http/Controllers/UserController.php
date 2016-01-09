@@ -23,7 +23,7 @@ class UserController extends Controller
     }
     
     public function getAll(){
-        $result = User::select('id', 'parent_id', 'ic_no', 'name', 'enabled', 'email')->get();
+        $result = User::with('membership')->select('id', 'membership_id', 'sky_id', 'parent_id', 'ic_no', 'name', 'enabled', 'email')->get();
         return response()->json($result);
     }
     

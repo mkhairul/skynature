@@ -7,6 +7,7 @@ use Illuminate\Routing\Controller;
 use Validator;
 
 use App\SettingsCommission;
+use App\MembershipCommission;
 
 class SettingsCommissionController extends Controller
 {
@@ -15,16 +16,23 @@ class SettingsCommissionController extends Controller
     }
     
     public function getAll(){
-        $result = SettingsCommission::get();
+        $result = SettingsCommission::with('membership')->get();
         return response()->json($result);
     }
     
     public function create(Request $request){
+				$membership_id = $request->input('membership');
+				if(!$membership_id){ 
+					return response()->json(['message' => 'Select membership'], 500);
+				}
+			
         $comm = new SettingsCommission;
         $comm->level = $request->input('level');
         $comm->rate = $request->input('rate');
         $comm->enabled = ($request->input('enabled')) ? $request->input('enabled'):0;
+				$comm->membership_id = $membership_id;
         $comm->save();
+			
         return response()->json(['status' => 'ok', 'id' => $comm->id]);
     }
     

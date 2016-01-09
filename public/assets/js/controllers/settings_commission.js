@@ -8,9 +8,19 @@ app.controller('SettingsCommissionController',
   $http.get($rootScope.url + 'settings/commission')
   .success(function(data){
       $scope.commissions = data;
+			console.log(data);
   })
   .error(function(data){
   });
+		
+	$http.get($rootScope.url + 'settings/membership')
+	.success(function(data){
+		$scope.memberships = data;
+		console.log(data);
+	})
+	.error(function(data){
+		
+	})
   
   $scope.hideAddEdit = function(){
       $scope.addEdit = false;
