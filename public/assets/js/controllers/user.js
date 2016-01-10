@@ -10,6 +10,24 @@ app.controller('UserController',
      $scope.users = data;
  })
  
+ $http.get($rootScope.url + 'settings/role')
+	.success(function(data){
+		$scope.roles = data;
+		console.log(data);
+	})
+	.error(function(data){
+		
+	})
+ 
+ $http.get($rootScope.url + 'settings/membership')
+	.success(function(data){
+		$scope.memberships = data;
+		console.log(data);
+	})
+	.error(function(data){
+		
+	})
+ 
  $scope.newUser = function(){
      $scope.user = {};
      $scope.user.action = 'new';

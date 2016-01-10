@@ -8,6 +8,24 @@ app.controller('MainController',
     'light-blue','cyan','teal','green','light-green',
     'lime','yellow','amber','orange','deep-orange'
   ];
+		
+	// retrieve current authenticated user
+	$http.get('auth/user')
+	.success(function(data){
+		console.log(data);
+		$rootScope.user = data;
+	});
+		
+	$rootScope.$watch('user', function(newVal, oldVal){
+		if(newVal)
+		{
+			$http.get('settings/membership/' + newVal.membership_id)
+			.success(function(data){
+				$rootScope.user.membership = data;
+				console.log($rootScope.user);
+			});
+		}
+	});
 
   $scope.fillinContent = function(){
     $scope.htmlContent = 'content content';

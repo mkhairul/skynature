@@ -16,14 +16,20 @@ app.controller('CommissionController',
 			console.log('error retrieving bv');
 		})
 	}
-	
-	$http.get($rootScope.url + 'settings/commission')
-  .success(function(data){
-			console.log(data);
-      $scope.commissions = data;
-  })
-  .error(function(data){
-  });
+		
+	$rootScope.$watch('user', function(newVal, oldVal){
+		if(newVal)
+		{
+			console.log(newVal);
+			$http.get($rootScope.url + 'settings/commission/' + newVal.membership_id)
+			.success(function(data){
+					console.log(data);
+					$scope.commissions = data;
+			})
+			.error(function(data){
+			});
+		}
+	});
 	
 	$scope.$watch('bv', function(val){
 		if(val)

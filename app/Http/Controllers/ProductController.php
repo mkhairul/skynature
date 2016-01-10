@@ -21,6 +21,14 @@ class ProductController extends Controller
     }
     
     public function create(Request $request){
+				$product_id = $request->input('id');	
+				if($product_id){
+					$row = Product::where('id', $id)->first();
+				}
+				else{
+					$row = new Product;
+				}
+			
         $row = new Product;
         $row->name = $request->input('name');
         $row->price = $request->input('price');

@@ -18,6 +18,11 @@ class SettingsMembershipController extends Controller
         $result = Membership::get();
         return response()->json($result);
     }
+	
+		public function getMembership($id){
+        $result = Membership::where('id', $id)->get();
+        return response()->json($result);
+    }
     
     public function create(Request $request){
 				$id = $request->input('id');
@@ -30,7 +35,8 @@ class SettingsMembershipController extends Controller
 				}
         $row->name = $request->input('name');
 				$row->discount = $request->input('discount');
-				$row->direct_bonus = $request->input('direct_bnous');
+				$row->direct_bonus = $request->input('direct_bonus');
+				$row->generation_bonus = $request->input('generation_bonus');
         $row->save();
         return response()->json(['status' => 'ok', 'id' => $row->id]);
     }

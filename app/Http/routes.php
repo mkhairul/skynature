@@ -37,10 +37,12 @@ Route::post('settings/commission/create', 'SettingsCommissionController@create')
 Route::post('settings/commission/update', 'SettingsCommissionController@update');
 Route::post('settings/commission/delete', 'SettingsCommissionController@remove');
 Route::get('settings/commission', 'SettingsCommissionController@getAll');
+Route::get('settings/commission/{membership}', 'SettingsCommissionController@getMembershipCommission');
 Route::get('settings/role', 'SettingsRoleController@getAll');
 Route::post('settings/role/create', 'SettingsRoleController@create');
 Route::post('settings/role/delete', 'SettingsRoleController@remove');
 Route::get('settings/membership', 'SettingsMembershipController@getAll');
+Route::get('settings/membership/{id}', 'SettingsMembershipController@getMembership');
 Route::post('settings/membership/create', 'SettingsMembershipController@create');
 Route::post('settings/membership/delete', 'SettingsMembershipController@remove');
 

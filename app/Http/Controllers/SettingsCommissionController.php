@@ -19,6 +19,11 @@ class SettingsCommissionController extends Controller
         $result = SettingsCommission::with('membership')->get();
         return response()->json($result);
     }
+	
+		public function getMembershipCommission($membership){
+        $result = SettingsCommission::with('membership')->where('membership_id', $membership)->get();
+        return response()->json($result);
+    }
     
     public function create(Request $request){
 				$membership_id = $request->input('membership');

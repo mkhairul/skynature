@@ -86,28 +86,32 @@ class UserController extends Controller
         }
 				if($request->input('ic_no'))
         {
-            $user->enabled = $request->input('ic_no');
+            $user->ic_no = $request->input('ic_no');
         }
 				if($request->input('type'))
         {
-            $user->enabled = $request->input('type');
+            $user->type = $request->input('type');
         }
 				if($request->input('bank_name'))
         {
-            $user->enabled = $request->input('bank_name');
+            $user->bank_name = $request->input('bank_name');
         }
 				if($request->input('bank_acc'))
         {
-            $user->enabled = $request->input('bank_acc');
+            $user->bank_acc = $request->input('bank_acc');
         }
 				if($request->input('bank_swift'))
         {
-            $user->enabled = $request->input('bank_swift');
+            $user->bank_swift = $request->input('bank_swift');
         }
 				if($request->input('address'))
         {
-            $user->enabled = $request->input('address');
+            $user->address = $request->input('address');
         }
+				if($request->input('membership'))
+				{
+						$user->membership_id = $request->input('membership');
+				}
         $user->save();
         return response()->json(['status' => 'ok']);
     }

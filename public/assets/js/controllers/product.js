@@ -17,20 +17,34 @@ app.controller('ProductController',
       $scope.addEditUser = false;
       $scope.selected_parent = '';
   }
+	
+	$scope.showAddEdit = function(row){
+			$scope.product = row;
+			$scope.addEditUser = true;
+	}
   
-	/*
+	
   $scope.saveProduct = function(){
       $http.post($rootScope.url + 'product/create', $scope.product)
       .success(function(data){
-          $scope.product.id = data.id
-          $scope.products.push($scope.product);
+					if($scope.product.id != undefined)
+					{
+						$filter = $filter('filter')($scope.products, { id: $scope.product.id })[0];
+						console.log($filter);
+					}
+					else
+					{
+						$scope.product.id = data.id
+						$scope.products.push($scope.product);
+					}  
+				
           $scope.product = {};
           $scope.addEditUser = false;
       })
       .error(function(data){
       });
   }
-	*/
+	
 	
 	$scope.confirmDelete = function(confirm)
   {
