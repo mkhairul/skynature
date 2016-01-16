@@ -20,7 +20,7 @@ class SettingsMembershipController extends Controller
     }
 	
 		public function getMembership($id){
-        $result = Membership::where('id', $id)->get();
+        $result = Membership::where('id', $id)->first();
         return response()->json($result);
     }
     

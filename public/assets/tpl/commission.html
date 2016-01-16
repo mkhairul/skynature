@@ -84,7 +84,7 @@
 												<td>{{ user.data.name }}</td>
 												<td>{{ user.data.email }}</td>
 												<td>{{ item.value }}</td>
-												<td>{{ user.level }} </td>
+												<td>{{ user.level }} <span ng-if="user.level === 1">(Direct)</span></td>
 												<td>{{ (getCommission(user.level).rate) ? getCommission(user.level).rate:'-' }}</td>
 												<td>{{ calculateCommission(getCommission(user.level).rate, item.value) }}</td>
 												<td>{{ item.created_at }}</td>

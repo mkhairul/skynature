@@ -28,6 +28,14 @@ app.controller('CommissionController',
 			})
 			.error(function(data){
 			});
+			
+			$http.get($rootScope.url + 'settings/membership/' + newVal.membership_id)
+			.success(function(data){
+					console.log(data);
+					$scope.membership = data;
+			})
+			.error(function(data){
+			});
 		}
 	});
 	
@@ -46,8 +54,17 @@ app.controller('CommissionController',
 	});
 		
 	$scope.getCommission = function(level){
-		var result = $filter('filter')($scope.commissions, { "level":level });
-		return (result.length > 0) ? result[0]:{};
+		if(parseInt(level) === 1){
+			if($scope.membership !== undefined)
+			{
+				var tmp = {}
+				tmp.rate = $scope.membership.direct_bonus
+				return tmp;
+			}
+		}else{
+			var result = $filter('filter')($scope.commissions, { "level":level });
+			return (result.length > 0) ? result[0]:{};
+		}
 	}
 		
 	if($routeParams.usr)

@@ -44,9 +44,9 @@ class UserController extends Controller
         }
         $user->ic_no = $request->input('ic_no');
 				$user->type = $request->input('type');
-				$user->bank_name = $request->input('bank_name');
-				$user->bank_acc = $request->input('bank_acc');
-				$user->bank_swift = $request->input('bank_swift');
+				$user->bank_name = ($request->input('bank_name')) ? $request->input('bank_name'):'';
+				$user->bank_acc = ($request->input('bank_acc')) ? $request->input('bank_acc'):'';
+				$user->bank_swift = ($request->input('bank_swift')) ? $request->input('bank_swift'):'';
 				$user->address = $request->input('address');
 				$user->membership_id = $request->input('membership');
 				$user->role_id = $request->input('role');
