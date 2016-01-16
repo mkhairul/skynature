@@ -1,5 +1,7 @@
 <?php
 use Illuminate\Database\Seeder;
+use Jenssegers\Optimus\Optimus;
+
 class UserTableSeeder extends Seeder
 {
     /**

@@ -35,7 +35,7 @@
   <link rel="manifest" href="assets/img/favicon/manifest.json">
   <link rel="shortcut icon" href="assets/img/favicon/favicon.ico">
 
-  <title ng-bind="pageTitle">Automation System</title>
+  <title ng-bind="pageTitle">Skynature Backend</title>
 
   <!-- build:css assets/css/vendors.min.css -->
   <link href="bower_components/material-design-iconic-font/css/material-design-iconic-font.css" rel="stylesheet" />

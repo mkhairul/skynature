@@ -3,7 +3,7 @@ app.controller('UploadController', ['$scope', 'Upload', '$timeout', '$rootScope'
 
   $scope.fileReaderSupported = window.FileReader !== undefined && (window.FileAPI === undefined || FileAPI.html5 !== false);
 
-  $scope.$watch('files', function () {
+  $scope.$watch('files', function (newVal, oldVal) {
     //$scope.upload($scope.files);
   });
 
@@ -70,8 +70,8 @@ app.controller('UploadController', ['$scope', 'Upload', '$timeout', '$rootScope'
 		}
   };
 																			
-  $scope.$watch('product_files', function(files){
-		if (files !== undefined && files !== null && files.length > 0) {
+  $scope.$watch('product_files', function(files, oldval){
+		if (files !== undefined && files !== null && (typeof files === 'object')) {
 			if($scope.files == undefined)
 			{
 				$scope.files = [];

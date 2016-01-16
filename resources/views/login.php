@@ -47,8 +47,7 @@
           <div class="brand-logo">
             <div id="logo">
               
-            </div>
-            SkyNature 
+            </div> 
           </div>
         </div>
         <div class="card-content">

@@ -13,7 +13,7 @@ class AddDiscountToMembership extends Migration
     public function up()
     {
         Schema::table('membership', function (Blueprint $table) {
-            $table->string('discount');
+            $table->string('discount')->nullable()->default(0);
         });
     }
 

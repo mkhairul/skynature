@@ -4,6 +4,9 @@
 
 #logo{
 	background: transparent;
+	background: url(../img/SKY_NATURE_LOGO.jpg) center center no-repeat;
+	background-size:contain;
+	width: 200px; height: 75px;
 	/*
     background: url(../img/favicon/favicon-196x196.png) center center no-repeat;
     background-size:contain;

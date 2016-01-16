@@ -13,7 +13,7 @@ class AddGenerationBonusToMembership extends Migration
     public function up()
     {
         Schema::table('membership', function (Blueprint $table) {
-            $table->integer('generation_bonus')->default(0);
+            $table->integer('generation_bonus')->nullable()->default(0);
         });
     }
 
