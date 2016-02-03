@@ -79,4 +79,16 @@ app.controller('SalesController',
      $scope.deleteItem.item = item;
      $scope.deleteItem.index = index;
  }
+ 
+ $scope.calculateDiscount = function(discount_rate, value){
+		if(discount_rate == undefined){ return ''; }
+		if(discount_rate.indexOf('%') >= 0)
+		{
+			return (parseInt(discount_rate) / 100) * value
+		}
+		else
+		{
+			return discount_rate;
+		}
+	}
 }]);

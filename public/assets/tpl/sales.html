@@ -70,6 +70,8 @@
                       <th>Product</th>
 											<th>Unit Price</th>
 											<th>Quantity</th>
+											<th>Sub Total</th>
+											<th>Discount</th>
 											<th>Total</th>
                       <th>User</th>
                       <th>Actions</th>
@@ -83,6 +85,8 @@
 											<td>{{ item.product[0].price }}</td>
 											<td>{{ item.quantity }}</td>
 											<td>{{ item.product[0].price * item.quantity }}</td>
+											<td>{{ item.discount }}</td>
+											<td>{{ (item.product[0].price * item.quantity) - calculateDiscount(item.discount, (item.product[0].price * item.quantity)).toFixed(2) }}</td>
                       <td>{{ item.user[0].name }}</td>
                       <td>
                           <button type="button" 

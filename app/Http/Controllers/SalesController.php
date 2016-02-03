@@ -9,6 +9,8 @@ use Validator;
 use App\Sales;
 use App\BV;
 use App\Product;
+use App\Membership;
+use App\User;
 
 class SalesController extends Controller
 {
@@ -22,17 +24,28 @@ class SalesController extends Controller
     }
     
     public function create(Request $request){
+				
+				$user_id = $request->input('user')['id'];
+			
+				// Get the membership level of the user
+				$user = User::find($user_id);
+				if(!$user){ return response()->json(['message' => 'User does not exists'], 500); } 
+			
+				$membership = Membership::find($user->membership_id);
+				if(!$membership){ return response()->json(['message' => 'Membership does not exists'], 500); } 
+			
         $row = new Sales;
         $row->product_id = $request->input('product')['id'];
-        $row->user_id = $request->input('user')['id'];
+        $row->user_id = $user_id;
 				$row->quantity = $request->input('quantity');
+				$row->discount = $membership->discount;
         $row->save();
         
         // Get the product details
         $product = Product::find($row->product_id);
         
         $bv = new BV;
-        $bv->user_id = $row->user_id;
+        $bv->user_id = $user_id;
         $bv->sales_id = $row->id;
         $bv->value = $product->price * $row->quantity;
         $bv->save();
