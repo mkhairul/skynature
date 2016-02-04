@@ -28,7 +28,7 @@
                                                     <div class="selected-product" ng-repeat="item in sale.product track by $index">
                                                       <div>{{item.name}}</div>
                                                       <div>Qty: {{item.quantity}}</div>
-                                                      <div ng-click="deleteItem($index)"><span class="md md-delete"></span></div>
+                                                      <a href ng-click="deleteItem($index)"><span class="md md-delete"></span></a>
                                                     </div>
 													<button type="button" 
                                   title="Delete"

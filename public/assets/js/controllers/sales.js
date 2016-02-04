@@ -85,6 +85,11 @@ app.controller('SalesController',
 	 $scope.selectedProduct = item;
  }
  
+ $scope.deleteItem = function(index)
+ {
+   $scope.sale.product.splice(index, 1);
+ }
+ 
  $scope.confirmSelect = function(){
 	 console.log($scope.selectedProduct);
 	 if($scope.sale == undefined){ $scope.sale = {} }
