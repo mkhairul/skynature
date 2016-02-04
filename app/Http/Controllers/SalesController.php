@@ -49,7 +49,7 @@ class SalesController extends Controller
 				$total_quantity = 0;
 				$subtotal = 0;
 				foreach($products as $item){
-					$product_detail = Products::find($item['id']);
+					$product_detail = Product::find($item['id']);
 					
 					$product_sales = new SaleProducts;
 					$product_sales->product_id = $item['id'];
