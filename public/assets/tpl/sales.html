@@ -25,7 +25,16 @@
                         <legend>Create Sales</legend>
                         <span class="help-block">Please fill out the following form below.</span>
 												<div class="form-group">
-													<button class="btn btn-default">Add Product</button>
+													<button type="button" 
+                                  title="Delete"
+                                  data-animation="am-fade-and-slide-top" 
+                                  data-template="assets/tpl/partials/select_product.html" 
+                                  bs-modal="modal"
+                                  class="btn btn-default" 
+                                  >Add Product<div class="ripple-wrapper"></div></button>
+													
+													
+													
 													<!--
 													<label class="control-label">Select Product</label>
 													<select class="form-control" ng-model="sale.product.id">

@@ -100,3 +100,14 @@ a{ cursor: pointer; }
 }
 
 #tree-container{ min-height: 500px; }
+.select-product > div > a,
+.select-product > div > span{ display: block; }
+.select-product > div{ display: inline-block; width: 200px; text-align: center; }
+.select-product div.image{ 
+	width: 150px; 
+	height: 150px;
+	overflow: hidden;
+	background-repeat: no-repeat;
+	background-size: contain; }
+
+.select-product tbody tr:hover, .select-product tbody tr.select{ background-color: #ccc; }

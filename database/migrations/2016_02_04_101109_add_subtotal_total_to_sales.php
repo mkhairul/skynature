@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddTotalProductsToSales extends Migration
+class AddSubtotalTotalToSales extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddTotalProductsToSales extends Migration
     public function up()
     {
         Schema::table('sales', function (Blueprint $table) {
-            $table->integer('total_products');
-						$table->string('total_price');
+            $table->string('subtotal');
+						$table->string('total');
         });
     }
 
@@ -26,7 +26,7 @@ class AddTotalProductsToSales extends Migration
     public function down()
     {
         Schema::table('sales', function (Blueprint $table) {
-            $table->dropColumn(['total_products', 'total_price']);
+            $table->dropColumn(['subtotal', 'total']);
         });
     }
 }

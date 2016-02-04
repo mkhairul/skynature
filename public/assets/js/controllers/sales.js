@@ -80,6 +80,20 @@ app.controller('SalesController',
      $scope.deleteItem.index = index;
  }
  
+ $scope.selectedProduct = {};
+ $scope.selectProduct = function(item){
+	 $scope.selectedProduct = item;
+ }
+ 
+ $scope.confirmSelect = function(){
+	 console.log($scope.selectedProduct);
+	 if($scope.sale == undefined){ $scope.sale = {} }
+	 if($scope.sale.product == undefined){ $scope.sale.product = {}; }
+	 
+	 $scope.sale.product = $scope.selectedProduct;
+	 $scope.selectedProduct = {};
+ }
+ 
  $scope.calculateDiscount = function(discount_rate, value){
 		if(discount_rate == undefined){ return ''; }
 		if(discount_rate.indexOf('%') >= 0)
@@ -91,4 +105,5 @@ app.controller('SalesController',
 			return discount_rate;
 		}
 	}
+ 
 }]);

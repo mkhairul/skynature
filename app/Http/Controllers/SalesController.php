@@ -11,6 +11,7 @@ use App\BV;
 use App\Product;
 use App\Membership;
 use App\User;
+use App\SaleProducts;
 
 class SalesController extends Controller
 {
@@ -34,30 +35,46 @@ class SalesController extends Controller
 				$membership = Membership::find($user->membership_id);
 				if(!$membership){ return response()->json(['message' => 'Membership does not exists'], 500); } 
 			
-				$product_ids = $request->input('product')['id'];
+				//$products = $request->input('product')['id'];
+				$products = $request->input('product');
 			
-        $row = new Sales;
-        $row->product_id = (count($product_ids) == 1) ? $product_ids:0;
-        $row->user_id = $user_id;
-				$row->quantity = $request->input('quantity');
-				$row->discount = $membership->discount;
-				$row->total_products = count($product_ids);
-        $row->save();
+        $sales = new Sales;
+        $sales->product_id = (count($products) == 1) ? $products[0]['id']:0;
+        $sales->user_id = $user_id;
+				//$sales->quantity = $request->input('quantity');
+				$sales->discount = $membership->discount;
+				$sales->total_products = count($products);
+        $sales->save();
 			
-				if(count($product_ids) > 1){
-					$sale_products = Sale
+				$total_quantity = 0;
+				$subtotal = 0;
+				foreach($products as $item){
+					$product_detail = Products::find($item['id']);
+					
+					$product_sales = new SaleProducts;
+					$product_sales->product_id = $item['id'];
+					$product_sales->sales_id = $sales->id;
+					$product_sales->save();
+					$subtotal += $product_detail->price * $item['quantity'];
+					$total_quantity += $item['quantity'];
 				}
+			
+				$sales->subtotal = $subtotal;
+				// Calculate after discount
+				$sales->total = $subtotal - (((floatval($sales->discount)) / 100) * $subtotal);
+				$sales->quantity = $total_quantity;
+				$sales->save();
         
         // Get the product details
         $product = Product::find($row->product_id);
         
         $bv = new BV;
         $bv->user_id = $user_id;
-        $bv->sales_id = $row->id;
-        $bv->value = $product->price * $row->quantity;
+        $bv->sales_id = $sales->id;
+        $bv->value = $sales->total;
         $bv->save();
         
-        return response()->json(['status' => 'ok', 'id' => $row->id]);
+        return response()->json(['status' => 'ok', 'id' => $sales->id]);
     }
     
     public function update(Request $request){
