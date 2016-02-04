@@ -88,9 +88,9 @@ app.controller('SalesController',
  $scope.confirmSelect = function(){
 	 console.log($scope.selectedProduct);
 	 if($scope.sale == undefined){ $scope.sale = {} }
-	 if($scope.sale.product == undefined){ $scope.sale.product = {}; }
+	 if($scope.sale.product == undefined){ $scope.sale.product = []; }
 	 
-	 $scope.sale.product = $scope.selectedProduct;
+	 $scope.sale.product.push($scope.selectedProduct);
 	 $scope.selectedProduct = {};
  }
  

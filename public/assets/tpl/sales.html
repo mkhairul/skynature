@@ -25,6 +25,11 @@
                         <legend>Create Sales</legend>
                         <span class="help-block">Please fill out the following form below.</span>
 												<div class="form-group">
+                                                    <div class="selected-product" ng-repeat="item in sale.product track by $index">
+                                                      <div>{{item.name}}</div>
+                                                      <div>Qty: {{item.quantity}}</div>
+                                                      <div ng-click="deleteItem($index)"><span class="md md-delete"></span></div>
+                                                    </div>
 													<button type="button" 
                                   title="Delete"
                                   data-animation="am-fade-and-slide-top" 
