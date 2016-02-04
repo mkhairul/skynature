@@ -31,7 +31,7 @@ class UserController extends Controller
         $result = User::with('membership')
                   ->select('id', 'membership_id', 'sky_id', 'parent_id', 'ic_no', 'name', 'enabled', 'email')
                   ->where('id', $user_id)
-                  ->get();
+                  ->first();
         return response()->json($result);
     }
     
