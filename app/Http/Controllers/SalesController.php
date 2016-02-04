@@ -66,7 +66,7 @@ class SalesController extends Controller
 				$sales->save();
         
         // Get the product details
-        $product = Product::find($row->product_id);
+        $product = Product::find($sales->product_id);
         
         $bv = new BV;
         $bv->user_id = $user_id;
