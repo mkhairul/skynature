@@ -101,9 +101,9 @@
                       <td>{{ item.product[0].name }}</td>
 											<td>{{ item.product[0].price }}</td>
 											<td>{{ item.quantity }}</td>
-											<td>{{ item.product[0].price * item.quantity }}</td>
+											<td>{{ item.subtotal }}</td>
 											<td>{{ item.discount }}</td>
-											<td>{{ (item.product[0].price * item.quantity) - calculateDiscount(item.discount, (item.product[0].price * item.quantity)).toFixed(2) }}</td>
+											<td>{{ item.total }}</td>
                       <td>{{ item.user[0].name }}</td>
                       <td>
                           <button type="button" 
