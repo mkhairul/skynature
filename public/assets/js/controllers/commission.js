@@ -57,6 +57,7 @@ app.controller('CommissionController',
 		if(parseInt(level) === 1){
 			if($scope.membership !== undefined)
 			{
+                console.log($scope.membership);
 				var tmp = {}
 				tmp.rate = $scope.membership.direct_bonus
 				return tmp;
