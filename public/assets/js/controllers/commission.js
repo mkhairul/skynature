@@ -16,28 +16,8 @@ app.controller('CommissionController',
 			console.log('error retrieving bv');
 		})
 	}
-		
-	$rootScope.$watch('user', function(newVal, oldVal){
-		if(newVal)
-		{
-			console.log(newVal);
-			$http.get($rootScope.url + 'settings/commission/' + newVal.membership_id)
-			.success(function(data){
-					console.log(data);
-					$scope.commissions = data;
-			})
-			.error(function(data){
-			});
-			
-			$http.get($rootScope.url + 'settings/membership/' + newVal.membership_id)
-			.success(function(data){
-					console.log(data);
-					$scope.membership = data;
-			})
-			.error(function(data){
-			});
-		}
-	});
+    
+    
 	
 	$scope.$watch('bv', function(val){
 		if(val)
@@ -57,7 +37,7 @@ app.controller('CommissionController',
 		if(parseInt(level) === 1){
 			if($scope.membership !== undefined)
 			{
-                console.log($scope.membership);
+                //console.log($scope.membership);
 				var tmp = {}
 				tmp.rate = $scope.membership.direct_bonus
 				return tmp;
@@ -71,12 +51,62 @@ app.controller('CommissionController',
 	if($routeParams.usr)
 	{
 		console.log('user defined');
-		var user_id = $routeParams.usr;
+		var user_id = $scope.user_id =  $routeParams.usr;
 		$scope.retrieveBV(user_id);
+      
+        // Retrieve user membership
+        $http.get($rootScope.url + 'user/membership/' + user_id)
+        .success(function(data){
+          $scope.user_details = data;
+        });
+      
+        $scope.$watch('user_details', function(newVal, oldVal){
+          if(newVal)
+          {
+                console.log(newVal);
+                $http.get($rootScope.url + 'settings/commission/' + newVal.membership_id)
+                .success(function(data){
+                        console.log(data);
+                        $scope.commissions = data;
+                })
+                .error(function(data){
+                });
+
+                $http.get($rootScope.url + 'settings/membership/' + newVal.membership_id)
+                .success(function(data){
+                        console.log(data);
+                        $scope.membership = data;
+                })
+                .error(function(data){
+                });
+            }
+        });
 	}
 	else
 	{
 		$scope.retrieveBV();
+      
+        $rootScope.$watch('user', function(newVal, oldVal){
+          if(newVal)
+          {
+                console.log(newVal);
+                $http.get($rootScope.url + 'settings/commission/' + newVal.membership_id)
+                .success(function(data){
+                        console.log(data);
+                        $scope.commissions = data;
+                })
+                .error(function(data){
+                });
+
+                $http.get($rootScope.url + 'settings/membership/' + newVal.membership_id)
+                .success(function(data){
+                        console.log(data);
+                        $scope.membership = data;
+                })
+                .error(function(data){
+                });
+            }
+        });
 	}
 		
 	$scope.calculateCommission = function(comm_rate, value){

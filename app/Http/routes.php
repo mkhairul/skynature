@@ -30,6 +30,7 @@ Route::post('user/create', 'UserController@create');
 Route::post('user/update', 'UserController@update');
 Route::post('user/remove', ['middleware' => 'auth', 'uses' => 'UserController@remove']);
 Route::post('user/children', 'UserController@children');
+Route::get('user/membership/{user_id}', 'UserController@getMembership');
 Route::post('user/children/bv', 'UserController@childrenBV');
 Route::get('user/graph', 'UserController@getGraph');
 

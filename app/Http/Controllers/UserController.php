@@ -26,6 +26,14 @@ class UserController extends Controller
         $result = User::with('membership')->select('id', 'membership_id', 'sky_id', 'parent_id', 'ic_no', 'name', 'enabled', 'email')->get();
         return response()->json($result);
     }
+  
+    public function getMembership($user_id){
+        $result = User::with('membership')
+                  ->select('id', 'membership_id', 'sky_id', 'parent_id', 'ic_no', 'name', 'enabled', 'email')
+                  ->where('id', $user_id)
+                  ->get();
+        return response()->json($result);
+    }
     
     public function create(Request $request){
         $user_exists = User::where('email', $request->input('email'))->first();
