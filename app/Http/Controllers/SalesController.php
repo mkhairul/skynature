@@ -34,12 +34,19 @@ class SalesController extends Controller
 				$membership = Membership::find($user->membership_id);
 				if(!$membership){ return response()->json(['message' => 'Membership does not exists'], 500); } 
 			
+				$product_ids = $request->input('product')['id'];
+			
         $row = new Sales;
-        $row->product_id = $request->input('product')['id'];
+        $row->product_id = (count($product_ids) == 1) ? $product_ids:0;
         $row->user_id = $user_id;
 				$row->quantity = $request->input('quantity');
 				$row->discount = $membership->discount;
+				$row->total_products = count($product_ids);
         $row->save();
+			
+				if(count($product_ids) > 1){
+					$sale_products = Sale
+				}
         
         // Get the product details
         $product = Product::find($row->product_id);
