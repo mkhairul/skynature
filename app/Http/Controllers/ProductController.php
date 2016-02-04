@@ -23,7 +23,7 @@ class ProductController extends Controller
     public function create(Request $request){
 				$product_id = $request->input('id');	
 				if($product_id){
-					$row = Product::where('id', $id)->first();
+					$row = Product::where('id', $product_id)->first();
 				}
 				else{
 					$row = new Product;
