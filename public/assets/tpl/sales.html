@@ -24,6 +24,12 @@
                       <fieldset>
                         <legend>Create Sales</legend>
                         <span class="help-block">Please fill out the following form below.</span>
+                        <div class="form-group">
+                            <label class="control-label">Select User</label>
+                            <select class="form-control" ng-model="sale.user.id">
+                                <option ng-repeat="item in users" value="{{item.id}}">{{item.name}}</option>
+                            </select>
+                        </div>
 												<div class="form-group">
                                                     <div class="selected-product" ng-repeat="item in sale.product track by $index">
                                                       <div>{{item.name}}</div>
@@ -47,12 +53,7 @@
 													</select>
 													-->
 												</div>
-												<div class="form-group">
-													<label class="control-label">Select User</label>
-													<select class="form-control" ng-model="sale.user.id">
-														<option ng-repeat="item in users" value="{{item.id}}">{{item.name}}</option>
-													</select>
-												</div>
+												
 												<div class="form-group">
 													<label for="inputEmail" class="control-label">Quantity</label>
 													<input type="text" class="form-control" ng-model="sale.quantity" value="1">
