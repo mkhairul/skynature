@@ -109,15 +109,19 @@ app.controller('CommissionController',
         });
 	}
 		
-	$scope.calculateCommission = function(comm_rate, value){
+	$scope.calculateCommission = function(comm_rate, discount, value){
 		if(comm_rate == undefined){ return ''; }
+    if(discount.indexOf('%') >= 0)
+    {
+      discount = (parseInt(discount) / 100);
+    }
 		if(comm_rate.indexOf('%') >= 0)
 		{
-			return (parseInt(comm_rate) / 100) * value
+			return ((parseInt(comm_rate) / 100) - discount) * value
 		}
 		else
 		{
-			return comm_rate;
+			return (comm_rate - discount);
 		}
 	}
 }]);

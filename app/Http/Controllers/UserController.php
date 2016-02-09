@@ -168,7 +168,7 @@ class UserController extends Controller
         
 				if($bv == true)
 				{
-        	$result = User::with('bv')->where('parent_id', $parent_id)->get();
+        	$result = User::with('bv')->with('membership')->where('parent_id', $parent_id)->get();
 				}
 				else
 				{
