@@ -115,6 +115,10 @@ app.controller('CommissionController',
     {
       discount = (parseInt(discount) / 100);
     }
+    else
+    {
+      discount = 0;
+    }
 		if(comm_rate.indexOf('%') >= 0)
 		{
 			return ((parseInt(comm_rate) / 100) - discount) * value
