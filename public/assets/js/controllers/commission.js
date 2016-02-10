@@ -134,6 +134,7 @@ app.controller('CommissionController',
       if(level && membership)
       {
         var result = $filter('filter')($scope.all_commissions, { "level":level, "membership_id":membership }, true)[0];
+        console.log(result);
         return result;
       }
       return 0;
