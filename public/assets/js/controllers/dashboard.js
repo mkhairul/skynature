@@ -90,7 +90,7 @@ app.controller('DashboardController',
       {
           parent = item.parent_id;
       }
-      console.log($filter('filter')($scope.users, { id: parent }));
-      return $filter('filter')($scope.users, { id: parent });
+      console.log($filter('filter')($scope.users, { id: parent }, true));
+      return $filter('filter')($scope.users, { id: parent }, true);
   }
 }]);

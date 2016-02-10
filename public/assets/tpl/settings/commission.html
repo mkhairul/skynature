@@ -18,12 +18,12 @@
                       <fieldset>
                         <legend>Create Commission</legend>
                         <span class="help-block">Please fill out the following form below.</span>
-												<div class="form-group">
-													<label for="inputEmail" class="control-label">Membership</label>
-													<select ng-model="commission.membership">
-														<option value="{{row.id}}" ng-repeat="row in memberships track by $index">{{row.name}}</option>
-													</select>
-												</div>
+                        <div class="form-group">
+                            <label for="inputEmail" class="control-label">Membership</label>
+                            <select ng-model="commission.membership">
+                                <option value="{{row.id}}" ng-repeat="row in memberships track by $index">{{row.name}}</option>
+                            </select>
+                        </div>
                         <div class="form-group">
                           <label for="inputEmail" class="control-label">Level</label>
                           <input type="text" class="form-control" ng-model="commission.level">
@@ -61,7 +61,7 @@
                       <th>No.</th>
                       <th>Level</th>
                       <th>Rate</th>
-											<th>Membership</th>
+				      <th>Membership</th>
                       <th>Enabled</th>
                       <th>Action</th>
                     </tr>
@@ -72,7 +72,7 @@
                       <td class="f20">{{$index+1}}</td>
                       <td>{{ row.level }}</td>
                       <td>{{ row.rate }}</td>
-											<td>{{ row.membership[0].name }}</td>
+				      <td>{{ row.membership[0].name }}</td>
                       <td>{{(row.enabled == 1) ? 1:0}}</td>
                       <td>
                           <ul class="actions">
