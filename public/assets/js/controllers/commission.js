@@ -99,6 +99,12 @@ app.controller('CommissionController',
                 })
                 .error(function(data){
                 });
+            
+                $http.get($rootScope.url + 'settings/commission/')
+                .success(function(data){
+                  console.log(data);
+                  $scope.all_commissions = data;
+                });
 
                 $http.get($rootScope.url + 'settings/membership/' + newVal.membership_id)
                 .success(function(data){
@@ -112,11 +118,11 @@ app.controller('CommissionController',
 	}
     
     $scope.getGB = function(level, membership){
-      console.log(level);
-      console.log(membership);
+      //console.log(level);
+      //console.log(membership);
       if(level && membership)
       {
-        var result = $filter('filter')($scope.commissions, { "level":level, "membership":membership }, true)[0];
+        var result = $filter('filter')($scope.all_commissions, { "level":level, "membership":membership }, true)[0];
         return result;
       }
       return 0;
