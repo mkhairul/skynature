@@ -150,9 +150,16 @@ app.controller('CommissionController',
       {
         discount = 0;
       }
-      if(comm_rate.indexOf('%') >= 0 && gb_rate.indexOf('%') >= 0)
+      if( (comm_rate.indexOf('%') >= 0 || comm_rate == 0) && gb_rate.indexOf('%') >= 0)
       {
-          return (((parseInt(comm_rate) / 100) + (parseInt(gb_rate)/100)) - discount) * value
+          if(comm_rate == 0)
+          {
+            return ((parseInt(gb_rate)/100) - discount) * value
+          }
+          else
+          {
+            return (((parseInt(comm_rate) / 100) + (parseInt(gb_rate)/100)) - discount) * value
+          }
       }
       else
       {
