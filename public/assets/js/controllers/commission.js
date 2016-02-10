@@ -133,14 +133,13 @@ app.controller('CommissionController',
       console.log(membership);
       if(level && membership)
       {
-        var result = $filter('filter')($scope.all_commissions, { "level":level, "membership_id":membership });
-        console.log(result);
-        return result;
+        var result = $filter('filter')($scope.all_commissions, { "level":level, "membership_id":membership })[0];
+        return result.rate;
       }
       return 0;
     }
 		
-	$scope.calculateCommission = function(comm_rate, discount, value){
+	$scope.calculateCommission = function(comm_rate, gb_rate, discount, value){
       if(comm_rate == undefined){ return ''; }
       if(discount.indexOf('%') >= 0)
       {
@@ -150,13 +149,13 @@ app.controller('CommissionController',
       {
         discount = 0;
       }
-      if(comm_rate.indexOf('%') >= 0)
+      if(comm_rate.indexOf('%') >= 0 && gb_rate.indexOf('%') >= 0)
       {
-          return ((parseInt(comm_rate) / 100) - discount) * value
+          return (((parseInt(comm_rate) / 100) + (parseInt(gb_rate)/100)) - discount) * value
       }
       else
       {
-          return (comm_rate - discount);
+          return ((comm_rate + gb_rate) - discount);
       }
 	}
 }]);
