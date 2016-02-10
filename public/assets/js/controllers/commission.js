@@ -47,6 +47,8 @@ app.controller('CommissionController',
 			return (result.length > 0) ? result[0]:{};
 		}
 	}
+    
+    
 		
 	if($routeParams.usr)
 	{
@@ -108,24 +110,33 @@ app.controller('CommissionController',
             }
         });
 	}
+    
+    $scope.getGB = function(level, membership){
+      if(level && membership)
+      {
+        var result = $filter('filter')($scope.commissions, { "level":level, "membership":membership }, true)[0];
+        return result;
+      }
+      return 0;
+    }
 		
 	$scope.calculateCommission = function(comm_rate, discount, value){
-		if(comm_rate == undefined){ return ''; }
-    if(discount.indexOf('%') >= 0)
-    {
-      discount = (parseInt(discount) / 100);
-    }
-    else
-    {
-      discount = 0;
-    }
-		if(comm_rate.indexOf('%') >= 0)
-		{
-			return ((parseInt(comm_rate) / 100) - discount) * value
-		}
-		else
-		{
-			return (comm_rate - discount);
-		}
+      if(comm_rate == undefined){ return ''; }
+      if(discount.indexOf('%') >= 0)
+      {
+        discount = (parseInt(discount) / 100);
+      }
+      else
+      {
+        discount = 0;
+      }
+      if(comm_rate.indexOf('%') >= 0)
+      {
+          return ((parseInt(comm_rate) / 100) - discount) * value
+      }
+      else
+      {
+          return (comm_rate - discount);
+      }
 	}
 }]);

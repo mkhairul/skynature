@@ -69,35 +69,37 @@
                     <tr>
                       <th>ID</th>
                       <th>Name</th>
-											<th>Email</th>
-											<th>Value</th>
-											<th>Level</th>
-											<th>Commission</th>
-											<th>CV</th>
-											<th>Date</th>
+                      <th>Email</th>
+                      <th>Value</th>
+                      <th>Level</th>
+                      <th>OB</th>
+                      <th>GB</th>
+                      <th>CV</th>
+                      <th>Date</th>
                       <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody ng-repeat="user in bv | filter:keyword">
-											<tr ng-repeat="item in user.data.bv">
-												<td>{{ user.data.id }}</td>
-												<td>{{ user.data.name }}</td>
-												<td>{{ user.data.email }}</td>
-												<td>{{ item.value }}</td>
-												<td>{{ user.level }} <span ng-if="user.level === 1">(Direct)</span></td>
-												<td>{{ (getCommission(user.level).rate) ? getCommission(user.level).rate + ' - ' + user.data.membership[0].discount:'-' }}</td>
-												<td>{{ calculateCommission(getCommission(user.level).rate, user.data.membership[0].discount, item.value) }}</td>
-												<td>{{ item.created_at }}</td>
-												<td>
-														<button type="button" 
-																		title="Delete"
-																		data-animation="am-fade-and-slide-top" 
-																		data-template="assets/tpl/partials/confirm_delete.html" 
-																		bs-modal="modal"
-																		class="btn btn-xs btn-round btn-danger" 
-																		ng-click="setDeleteUser(item, $index)"><span class="md md-delete"></span><div class="ripple-wrapper"></div></button>
-												</td>
-											</tr>
+                        <tr ng-repeat="item in user.data.bv">
+                            <td>{{ user.data.id }}</td>
+                            <td>{{ user.data.name }}</td>
+                            <td>{{ user.data.email }}</td>
+                            <td>{{ item.value }}</td>
+                            <td>{{ user.level }} <span ng-if="user.level === 1">(Direct)</span></td>
+                            <td>{{ (getCommission(user.level).rate) ? getCommission(user.level).rate + ' - ' + user.data.membership[0].discount:'-' }}</td>
+                            <td>{{ getGB(user.level, user.membership_id) }}</td>
+                            <td>{{ calculateCommission(getCommission(user.level).rate, user.data.membership[0].discount, item.value) }}</td>
+                            <td>{{ item.created_at }}</td>
+                            <td>
+                                <button type="button" 
+                                        title="Delete"
+                                        data-animation="am-fade-and-slide-top" 
+                                        data-template="assets/tpl/partials/confirm_delete.html" 
+                                        bs-modal="modal"
+                                        class="btn btn-xs btn-round btn-danger" 
+                                        ng-click="setDeleteUser(item, $index)"><span class="md md-delete"></span><div class="ripple-wrapper"></div></button>
+                            </td>
+                        </tr>
                     </tbody>
                   </table>
                 </div>
