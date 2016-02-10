@@ -129,8 +129,8 @@ app.controller('CommissionController',
 	}
     
     $scope.getGB = function(level, membership){
-      //console.log(level);
-      //console.log(membership);
+      console.log(level);
+      console.log(membership);
       if(level && membership)
       {
         var result = $filter('filter')($scope.all_commissions, { "level":level, "membership_id":membership }, true)[0];
