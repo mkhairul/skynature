@@ -13,17 +13,17 @@ use Jenssegers\Optimus\Optimus;
 class UserController extends Controller
 {
     public $total_children = 0;
-		public $flat = [];
-		public $bv = [];
-		public $debug_log = [];
+    public $flat = [];
+	public $bv = [];
+	public $debug_log = [];
     
     public function __construct()
     {
-			$this->optimus = new Optimus(1580030173, 59260789, 1163945558);
+		$this->optimus = new Optimus(1580030173, 59260789, 1163945558);
     }
     
     public function getAll(){
-        $result = User::with('membership')->select('id', 'membership_id', 'sky_id', 'parent_id', 'ic_no', 'name', 'enabled', 'email')->get();
+        $result = User::with('membership')->select('id', 'membership_id', 'sky_id', 'parent_id', 'ic_no', 'name', 'enabled', 'email', 'type', 'bank_name', 'bank_acc', 'bank_swift', 'address')->get();
         return response()->json($result);
     }
   
