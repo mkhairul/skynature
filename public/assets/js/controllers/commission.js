@@ -5,6 +5,12 @@ app.controller('CommissionController',
 	// Get all child BVs
 	$scope.pageTitle = 'Commission';
 	$scope.commissions = [];
+    
+    $http.get($rootScope.url + 'settings/commission/')
+    .success(function(data){
+      console.log(data);
+      $scope.all_commissions = data;
+    });
 		
 	$scope.retrieveBV = function(user_id){
 		$http.post($rootScope.url + 'user/children/bv', { id: user_id})
@@ -54,7 +60,13 @@ app.controller('CommissionController',
 	{
 		console.log('user defined');
 		var user_id = $scope.user_id =  $routeParams.usr;
-		$scope.retrieveBV(user_id);
+      
+        $scope.$watch('all_commissions', function(newVal, oldVal){
+          if(newVal)
+          {
+            $scope.retrieveBV(user_id);
+          }
+        })
       
         // Retrieve user membership
         $http.get($rootScope.url + 'user/membership/' + user_id)
@@ -86,7 +98,12 @@ app.controller('CommissionController',
 	}
 	else
 	{
-		$scope.retrieveBV();
+        $scope.$watch('all_commissions', function(newVal, oldVal){
+          if(newVal)
+          {
+            $scope.retrieveBV();
+          }
+        })
       
         $rootScope.$watch('user', function(newVal, oldVal){
           if(newVal)
@@ -98,12 +115,6 @@ app.controller('CommissionController',
                         $scope.commissions = data;
                 })
                 .error(function(data){
-                });
-            
-                $http.get($rootScope.url + 'settings/commission/')
-                .success(function(data){
-                  console.log(data);
-                  $scope.all_commissions = data;
                 });
 
                 $http.get($rootScope.url + 'settings/membership/' + newVal.membership_id)
