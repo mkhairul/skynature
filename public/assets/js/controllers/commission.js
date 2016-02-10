@@ -49,8 +49,9 @@ app.controller('CommissionController',
 				return tmp;
 			}
 		}else{
-			var result = $filter('filter')($scope.commissions, { "level":level });
-			return (result.length > 0) ? result[0]:{};
+			//var result = $filter('filter')($scope.commissions, { "level":level });
+			//return (result.length > 0) ? result[0]:{};
+            return 0;
 		}
 	}
     
