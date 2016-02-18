@@ -54,6 +54,7 @@ Route::post('product/images', 'ProductController@saveImages');
 Route::post('product/remove', 'ProductController@remove');
 
 Route::get('sales', 'SalesController@getAll');
+Route::get('sales/{user_id}', 'SalesController@getUser');
 Route::get('sales/total/{user_id}', 'SalesController@getTotal');
 Route::post('sales/create', 'SalesController@create');
 Route::post('sales/remove', 'SalesController@remove');

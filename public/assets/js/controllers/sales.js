@@ -6,8 +6,17 @@ app.controller('SalesController',
   $scope.sales = [];
   $scope.products = [];
   $scope.users = [];
+    
+  if($routeParams.usr)
+  {
+    var sales_route = 'sales/' + $routeParams.usr
+  }
+  else
+  {
+    var sales_route = 'sales';
+  }
       
-  $http.get($rootScope.url + 'sales')
+  $http.get($rootScope.url + sales_route)
   .success(function(data){
       $scope.sales = data;
       console.log($scope.sales);
@@ -19,6 +28,12 @@ app.controller('SalesController',
       }
   })
   .error(function(data){
+  });
+    
+  $scope.$watch('users', function(newVal, oldVal){
+    if(newVal){
+      $scope.current_user = $filter('filter')($scope.users, {id:$routeParams.usr}, true)
+    }
   });
       
   $http.get($rootScope.url + 'products')
@@ -66,7 +81,7 @@ app.controller('SalesController',
       });
   }
 	
-	$scope.confirmDelete = function(confirm)
+  $scope.confirmDelete = function(confirm)
   {
       if(confirm === true)
       {

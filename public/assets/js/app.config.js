@@ -6,6 +6,10 @@ app.config(['$routeProvider', function($routeProvider) {
       templateUrl: function(attr){
         return 'assets/tpl/commission.html';
       }
+    }).when('/sales/:usr', {
+      templateUrl: function(attr){
+        return 'assets/tpl/sales.html';
+      }
     }).when('/graph/:usr', {
       templateUrl: function(attr){
         return 'assets/tpl/graph.html';

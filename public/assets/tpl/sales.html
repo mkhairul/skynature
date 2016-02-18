@@ -72,6 +72,7 @@
                       Sales ({{sales.length}})
                       <button ng-click="addEditUser = true" type="button" class="btn btn-xs btn-round btn-success"><span class="md md-add"></span><div class="ripple-wrapper"></div></button>
                   </h3>
+                  <h4 class="table-title" ng-if="current_user">{{current_user.name}}</h4>
                   <h4 class="table-title">Total Sales: {{total_sales}}</h4>
 
                   <table class="table table-full table-full-small">
