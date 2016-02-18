@@ -5,6 +5,7 @@ app.controller('CommissionController',
 	// Get all child BVs
 	$scope.pageTitle = 'Commission';
 	$scope.commissions = [];
+    $scope.total_sales = 0;
     
     $scope.retrieveSales = function(user_id){
       $http.get($rootScope.url + 'sales/total/' + user_id)
