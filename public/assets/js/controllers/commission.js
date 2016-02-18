@@ -117,7 +117,7 @@ app.controller('CommissionController',
         })
       
         $rootScope.$watch('user', function(newVal, oldVal){
-          $scope.retrieveSales(user.id);
+          $scope.retrieveSales(newVal.id);
           if(newVal)
           {
                 console.log(newVal);
