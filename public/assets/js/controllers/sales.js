@@ -11,6 +11,11 @@ app.controller('SalesController',
   .success(function(data){
       $scope.sales = data;
       console.log($scope.sales);
+      $scope.total_sales = 0;
+      for(var i in $scope.sales)
+      {
+        $scope.total_sales += $scope.sales[i].total;
+      }
   })
   .error(function(data){
   });
