@@ -71,7 +71,7 @@ app.controller('CommissionController',
 	{
 		console.log('user defined');
 		var user_id = $scope.user_id =  $routeParams.usr;
-      
+        $scope.retrieveSales(user_id);
         $scope.$watch('all_commissions', function(newVal, oldVal){
           if(newVal)
           {
@@ -117,6 +117,7 @@ app.controller('CommissionController',
         })
       
         $rootScope.$watch('user', function(newVal, oldVal){
+          $scope.retrieveSales(user.id);
           if(newVal)
           {
                 console.log(newVal);
