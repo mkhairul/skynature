@@ -125,21 +125,27 @@
                       <td><a ng-click="selectUser(item)">{{ item.name }}</a></td>
                       <td>{{ item.email }}</td>
                       <td>
-													<button type="button" 
-																	class="btn btn-xs btn-round btn-success" 
-																	ng-click="goTo('graph/'+item.id)"
-																	title="View Graph">
-															<span class="md md-settings-input-composite"></span>
-															<div class="ripple-wrapper"></div>
-													</button>
-													<button type="button" 
-																	class="btn btn-xs btn-round btn-success" 
-																	ng-click="goTo('commission/'+item.id)"
-																	title="View Commission">
-															<span class="md md-attach-money"></span>
-															<div class="ripple-wrapper"></div>
-													</button>
-													
+                          <button type="button" 
+                                          class="btn btn-xs btn-round btn-success" 
+                                          ng-click="goTo('graph/'+item.id)"
+                                          title="View Graph">
+                                  <span class="md md-settings-input-composite"></span>
+                                  <div class="ripple-wrapper"></div>
+                          </button>
+                          <button type="button" 
+                                          class="btn btn-xs btn-round btn-success" 
+                                          ng-click="goTo('commission/'+item.id)"
+                                          title="View Commission">
+                                  <span class="md md-attach-money"></span>
+                                  <div class="ripple-wrapper"></div>
+                          </button>
+                          <button type="button" 
+                                          class="btn btn-xs btn-round btn-success" 
+                                          ng-click="goTo('sales/'+item.id)"
+                                          title="View Sales">
+                                  <span class="md md-attach-money"></span>
+                                  <div class="ripple-wrapper"></div>
+                          </button>
                           <button type="button" 
                                   title="Delete"
                                   data-animation="am-fade-and-slide-top" 

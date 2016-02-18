@@ -1,6 +1,6 @@
 app.controller('SalesController',
-  ['$window', '$scope', '$rootScope', '$http', '$filter',
-  function($window, $scope, $rootScope, $http, $filter){
+  ['$window', '$scope', '$rootScope', '$http', '$filter', '$routeParams',
+  function($window, $scope, $rootScope, $http, $filter, $routeParams){
   
   $scope.sale = {};
   $scope.sales = [];
