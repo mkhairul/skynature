@@ -15,7 +15,7 @@ app.controller('SalesController',
       for(var i in $scope.sales)
       {
         console.log($scope.sales[i].total);
-        $scope.total_sales += parseInt($scope.sales[i].total);
+        $scope.total_sales += ($scope.sales[i].total) ? parseInt($scope.sales[i].total):0;
       }
   })
   .error(function(data){
