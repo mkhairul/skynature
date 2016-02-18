@@ -11,7 +11,7 @@ app.controller('CommissionController',
       $http.get($rootScope.url + 'sales/total/' + user_id)
       .success(function(data){
           console.log(data);
-          $scope.total_sales = data;
+          $scope.total_sales = parseFloat(data);
       })
       .error(function(data){
       });
