@@ -23,6 +23,11 @@ class SalesController extends Controller
         $result = Sales::with('product')->with('user')->get();
         return response()->json($result);
     }
+  
+    public function getTotal($user_id){
+        $result = Sales::with('product')->with('user')->where('user_id', $user_id)->sum('total');
+        return response()->json($result);
+    }
     
     public function create(Request $request){
 				

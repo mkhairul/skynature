@@ -6,6 +6,16 @@ app.controller('CommissionController',
 	$scope.pageTitle = 'Commission';
 	$scope.commissions = [];
     
+    $scope.retrieveSales = function(user_id){
+      $http.get($rootScope.url + 'sales/total/' + user_id)
+      .success(function(data){
+          console.log(data);
+          $scope.total_sales = data;
+      })
+      .error(function(data){
+      });
+    }
+    
     $http.get($rootScope.url + 'settings/commission/')
     .success(function(data){
       console.log(data);
