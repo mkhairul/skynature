@@ -140,7 +140,19 @@ class UserController extends Controller
 	
 		public function childrenBV(Request $request){
         $user_id = $request->input('id') ? $request->input('id'):Auth::user()->id;
-        $children = $this->retrieveChildren($user_id, 1, true);
+        $dateFilter = [];
+        if($request->input('from'))
+        {
+          $from = date('Y-m-d', strtotime($request->input('from') . ' -1 days'));
+          $dateFilter['from'] = $from;
+        }
+        if($request->input('to'))
+        {
+          $to = date('Y-m-d', strtotime($request->input('to') . ' +1 days'));
+          $dateFilter['to'] = $to;
+        }
+      
+        $children = $this->retrieveChildren($user_id, 1, true, $dateFilter);
         return response()->json(['status' => 'ok', 
 																 'bv' => $this->bv,
 																 'children' => $children, 
@@ -160,7 +172,7 @@ class UserController extends Controller
 			$this->debug_log[] = $str;
 		}
     
-    private function retrieveChildren($parent_id, $level = 1, $bv = false)
+    private function retrieveChildren($parent_id, $level = 1, $bv = false, $dateFilter = [])
     {
         if($level == 8){ return []; }
         
@@ -168,7 +180,23 @@ class UserController extends Controller
         
 				if($bv == true)
 				{
-        	$result = User::with('bv')->with('membership')->where('parent_id', $parent_id)->get();
+          if(count($dateFilter) > 0){
+            $result = User::with(['bv' => function($query) use ($dateFilter){
+                          if(array_key_exists('from', $dateFilter)){
+                            $query->where('bv.created_at', '>=', $dateFilter['from']);
+                          }
+                          if(array_key_exists('to', $dateFilter)){
+                            $query->where('bv.created_at', '<=', $dateFilter['to']);
+                          }
+                        }
+                      ])
+                      ->with('membership')
+                      ->where('parent_id', $parent_id)->get();
+           }else{
+              $result = User::with('bv')
+                      ->with('membership')
+                      ->where('parent_id', $parent_id)->get();
+           }
 				}
 				else
 				{
@@ -179,7 +207,7 @@ class UserController extends Controller
 			
         foreach($result as $child)
         {
-        	$children = $this->retrieveChildren($child->id, $level + 1, $bv);
+        	$children = $this->retrieveChildren($child->id, $level + 1, $bv, $dateFilter);
           $users[] = ['name' => $child->name, 'user' => $child, 'level' => $level, 'children' => $children];
 					if($bv)
 					{

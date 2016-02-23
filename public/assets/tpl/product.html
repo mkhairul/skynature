@@ -26,18 +26,20 @@
                         <span class="help-block">Please fill out the following form below.</span>
                         <div class="form-group">
                           <label for="inputEmail" class="control-label">Name</label>
-                          <input type="text" class="form-control" ng-model="product.name">
+                          <input type="text" class="form-control" ng-model="product.name" value="{{product.name}}">
                         </div>
                         <div class="form-group">
                           <label for="inputEmail" class="control-label">Price</label>
-                          <input type="text" class="form-control" ng-model="product.price">
+                          <input type="text" class="form-control" ng-model="product.price" value="{{product.price}}">
+                        </div>
+                        <div class="form-group">
+                          <label for="inputEmail" class="control-label">Quantity</label>
+                          <input type="text" class="form-control" ng-model="product.qty" value="{{product.qty}}">
                         </div>
 												<div>
-
 													<div class="form-group">
 														<div class="btn btn-info" multiple ng-multiple ngf-select ng-model="product_files">Upload with button</div>
 													</div>
-
 													<ul style="clear:both" ng-show="files.length > 0" class="response list-unstyled">
 														<li class="sel-file" ng-repeat="f in files track by $index">
 															<img ng-show="f.dataUrl" ng-src="{{f.dataUrl}}" class="thumb">
@@ -93,6 +95,7 @@
                     <tr>
                       <th>ID</th>
                       <th>Name</th>
+                      <th>Qty</th>
                       <th>Price</th>
                       <th>Actions</th>
                     </tr>
@@ -107,6 +110,7 @@
 												</a>
 												<a ng-click="showAddEdit(item)">{{ item.name }}</a>
 											</td>
+                      <td>{{ item.qty }}</td>
                       <td>{{ item.price }}</td>
                       <td>
                           <button type="button" 

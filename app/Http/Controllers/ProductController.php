@@ -29,9 +29,9 @@ class ProductController extends Controller
 					$row = new Product;
 				}
 			
-        $row = new Product;
         $row->name = $request->input('name');
         $row->price = $request->input('price');
+        $row->qty = $request->input('qty');
         $row->enabled = 1;
         $row->save();
         return response()->json(['status' => 'ok', 'id' => $row->id]);

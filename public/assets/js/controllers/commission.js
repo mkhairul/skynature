@@ -33,6 +33,17 @@ app.controller('CommissionController',
 			console.log('error retrieving bv');
 		})
 	}
+  
+  $scope.retrieveBVFilter = function(user_id, dateFrom, dateTo){
+		$http.post($rootScope.url + 'user/children/bv', { id: user_id, from:dateFrom, to:dateTo})
+		.success(function(data){
+			console.log(data);
+			$scope.bv = data.bv;
+		})
+		.error(function(data){
+			console.log('error retrieving bv');
+		})
+	}
     
     
 	
@@ -118,26 +129,27 @@ app.controller('CommissionController',
         })
       
         $rootScope.$watch('user', function(newVal, oldVal){
-          $scope.retrieveSales(newVal.id);
           if(newVal)
           {
-                console.log(newVal);
-                $http.get($rootScope.url + 'settings/commission/' + newVal.membership_id)
-                .success(function(data){
-                        console.log(data);
-                        $scope.commissions = data;
-                })
-                .error(function(data){
-                });
+              var user_id = $scope.user_id = newVal.id;
+              $scope.retrieveSales(newVal.id);
+              console.log(newVal);
+              $http.get($rootScope.url + 'settings/commission/' + newVal.membership_id)
+              .success(function(data){
+                      console.log(data);
+                      $scope.commissions = data;
+              })
+              .error(function(data){
+              });
 
-                $http.get($rootScope.url + 'settings/membership/' + newVal.membership_id)
-                .success(function(data){
-                        console.log(data);
-                        $scope.membership = data;
-                })
-                .error(function(data){
-                });
-            }
+              $http.get($rootScope.url + 'settings/membership/' + newVal.membership_id)
+              .success(function(data){
+                      console.log(data);
+                      $scope.membership = data;
+              })
+              .error(function(data){
+              });
+           }
         });
 	}
     
@@ -178,4 +190,5 @@ app.controller('CommissionController',
           return ((comm_rate + gb_rate) - discount);
       }
 	}
+  
 }]);

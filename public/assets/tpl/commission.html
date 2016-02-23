@@ -55,11 +55,40 @@
               <div class="card no-margin">
 
                 <div class="table-responsive white">
-                  <h3 class="table-title p-20">
-                      Buy Value ({{(bv) ? bv.length:0}})
-                      <button ng-click="addEditUser = true" type="button" class="btn btn-xs btn-round btn-success"><span class="md md-add"></span><div class="ripple-wrapper"></div></button>
-                  </h3>
-		          <h4 class="table-title">Total Buy Value: {{total_bv+total_sales}} (Sales: {{total_sales}})</h4>
+                  <div class="col-md-12">
+                    <div class="col-md-5 pull-right p-t-10">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon" id="basic-addon1"><i class="md md-event-available"></i></span>
+
+                          <div class="row">
+                            <div class="col-md-4">
+                              <input type="text" class="form-control" 
+                                     ng-model="dateFromFilter" data-autoclose="1" 
+                                     placeholder="From" bs-datepicker date-format="yyyy-MM-dd">
+                            </div>
+                            <div class="col-md-4">
+                              <input type="text" class="form-control" 
+                                     ng-model="dateToFilter" data-autoclose="1" 
+                                     placeholder="To" bs-datepicker date-format="yyyy-MM-dd">
+                            </div>
+                            <div class="col-md-2">
+                              <button class="btn btn-default" ng-click="retrieveBVFilter(user_id, dateFromFilter, dateToFilter)">Filter</button>
+                            </div>
+                            <div class="col-md-2">
+                              <button class="btn btn-default" ng-click="dateFromFilter = ''; dateToFilter = ''; retrieveBVFilter(user_id)">Clear</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <h3 class="col-md-7 table-title p-20">
+                        Buy Value ({{(bv) ? bv.length:0}})
+                        <button ng-click="addEditUser = true" type="button" class="btn btn-xs btn-round btn-success"><span class="md md-add"></span><div class="ripple-wrapper"></div></button>
+                    </h3>
+                  </div>
+                  
+		              <h4 class="table-title">Total Buy Value: {{total_bv+total_sales}} (Sales: {{total_sales}})</h4>
 
                   <table class="table table-full table-full-small">
                     <colgroup>
@@ -80,7 +109,7 @@
                     </tr>
                     </thead>
                     <tbody ng-repeat="user in bv | filter:keyword">
-                        <tr ng-repeat="item in user.data.bv">
+                        <tr ng-repeat="item in user.data.bv | filter: dateRangeFilter('created_at', dateFromFilter, dateToFilter)">
                             <td>{{ user.data.id }}</td>
                             <td>{{ user.data.name }}</td>
                             <td>{{ user.data.email }}</td>
