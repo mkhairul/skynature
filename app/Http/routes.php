@@ -12,7 +12,6 @@
 */
 
 use Illuminate\Http\Request;
-use Auth;
 
 Route::get('/', function () {
     return view('login');
