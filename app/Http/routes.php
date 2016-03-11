@@ -12,7 +12,7 @@
 */
 
 use Illuminate\Http\Request;
-use User;
+use App\User;
 
 Route::get('/', function () {
     return view('login');
