@@ -26,7 +26,7 @@ Route::post('auth/manual_login', function(Request $request){
   }else{
     return response()->json(['status' => 'error', 'message' => 'Invalid login'], 500);
   }
-})
+});
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
 Route::get('auth/logout', function(){
