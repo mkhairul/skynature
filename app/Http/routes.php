@@ -19,13 +19,13 @@ Route::get('/', function () {
 
 Route::get('/main', ['middleware' => 'auth', function () { return view('main'); }]);
 
-Route::post('auth/manual_login', function(Request $request){
+Route::post('auth/manual_login', ['middleware' => 'cors', function(Request $request){
   if(Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')])){
     return response()->json(['status' => 'ok']);
   }else{
     return response()->json(['status' => 'error', 'message' => 'Invalid login'], 500);
   }
-});
+}]);
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
 Route::get('auth/logout', function(){
