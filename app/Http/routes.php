@@ -43,7 +43,7 @@ Route::post('user/remove', ['middleware' => 'auth', 'uses' => 'UserController@re
 Route::post('user/children', 'UserController@children');
 Route::get('user/membership/{user_id}', 'UserController@getMembership');
 Route::post('user/children/bv', 'UserController@childrenBV');
-Route::get('user/graph', 'UserController@getGraph');
+Route::get('user/graph', ['middleware' => 'cors', 'uses' => 'UserController@getGraph']);
 
 Route::post('settings/commission/create', 'SettingsCommissionController@create');
 Route::post('settings/commission/update', 'SettingsCommissionController@update');
